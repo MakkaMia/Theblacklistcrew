@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<style>body{margin:0}</style>
+<style>body{margin:0}[hidden]{display:none!important}</style>
 <title>The Black List Crew</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -26,6 +26,7 @@
   color-scheme: dark;
 }
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; scroll-padding-top: 72px; }
 body {
   background: var(--ink);
@@ -154,6 +155,81 @@ section { padding-block: 84px; }
 .pill.open { border-color: var(--violet-hi); color: var(--violet-hi); }
 @media (max-width: 700px) { .ev { grid-template-columns: minmax(0, 1fr); } .ev .pill { justify-self: start; margin-top: 6px; } }
 
+/* Ubicaciones, galería, clubs y staff */
+.tight { padding-top: 0; }
+.cities { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; margin-top: 48px; }
+.city {
+  background: var(--panel); padding: 30px 28px 28px; min-width: 0;
+  clip-path: polygon(0 0, calc(100% - 30px) 0, 100% 30px, 100% 100%, 0 100%);
+}
+.city h3 { font: italic 900 clamp(2.6rem, 8vw, 3.6rem)/.95 var(--f-display); margin: 14px 0 12px; }
+.city p { color: var(--mute); }
+.city a {
+  display: inline-block; margin-top: 20px; padding-bottom: 4px; border-bottom: 1px solid currentColor;
+  font: 600 1rem/1 var(--f-display); letter-spacing: .08em; text-transform: uppercase; color: var(--violet-hi); text-decoration: none;
+}
+.sub { margin-top: 48px; }
+.sub h3 { font-size: 1.9rem; }
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; margin-top: 20px; }
+.gallery:empty, .vlist:empty, .people:empty { display: none; }
+.gallery img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; background: var(--panel); }
+.vlist { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 12px; margin-top: 20px; }
+.vcard { display: block; padding: 20px; border: 1px solid var(--line); text-decoration: none; min-width: 0; transition: border-color .15s; }
+.vcard:hover { border-color: var(--violet-hi); }
+.vcard b { display: block; font: italic 800 1.35rem/1.1 var(--f-display); text-transform: uppercase; margin-bottom: 10px; }
+.vcard span { font: 500 .78rem/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--violet-hi); }
+.empty {
+  margin-top: 20px; padding: 28px; border: 1px dashed var(--line); color: var(--mute);
+  background: repeating-linear-gradient(-45deg, transparent 0 10px, rgba(154, 120, 255, .06) 10px 11px);
+}
+.empty b { display: block; color: var(--paper); font: italic 800 1.3rem/1.1 var(--f-display); text-transform: uppercase; margin-bottom: 6px; }
+.empty a { color: var(--violet-hi); }
+.people { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 28px 24px; margin-top: 28px; }
+.person { min-width: 0; }
+.person img, .person .ph {
+  display: block; width: 100%; aspect-ratio: 1; object-fit: cover; background: var(--panel);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 22px), calc(100% - 22px) 100%, 0 100%);
+}
+.person .ph { display: grid; place-items: center; font: italic 900 3.4rem/1 var(--f-display); color: var(--violet-hi); }
+.person b { display: block; margin-top: 12px; font: italic 800 1.3rem/1.1 var(--f-display); text-transform: uppercase; }
+.person span { font: 500 .76rem/1.4 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--mute); }
+.section-lead { color: #d9d3ea; max-width: 56ch; margin-top: 18px; }
+
+/* Carpetas de fotos */
+.folders { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; margin-top: 20px; }
+.folder {
+  appearance: none; cursor: pointer; text-align: left; color: var(--paper); font: inherit; min-width: 0;
+  background: var(--panel); border: 1px solid var(--line); padding: 18px 18px 16px;
+  clip-path: polygon(0 0, calc(100% - 26px) 0, 100% 26px, 100% 100%, 0 100%);
+  transition: background .15s, border-color .15s, color .15s;
+}
+.folder b { display: block; font: italic 800 1.5rem/1 var(--f-display); text-transform: uppercase; margin-bottom: 10px; }
+.folder span { font: 500 .76rem/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--mute); }
+.folder:hover { border-color: var(--violet-hi); }
+.folder[aria-pressed="true"] { background: var(--violet); border-color: var(--violet); color: #fff; }
+.folder[aria-pressed="true"] span { color: #fff; opacity: .85; }
+.folder:focus-visible { outline: 0; background: var(--paper); color: var(--ink); border-color: var(--paper); }
+.folder:focus-visible span { color: var(--ink); opacity: 1; }
+
+/* Miembros: fichas y subida */
+.member { margin: 0; min-width: 0; }
+.member figcaption { display: flex; flex-direction: column; gap: 3px; padding-top: 10px; }
+.member b { font: italic 800 1.2rem/1.1 var(--f-display); text-transform: uppercase; }
+.member a { font: 500 .8rem/1.3 var(--f-mono); color: var(--violet-hi); text-decoration: none; word-break: break-all; }
+.member a:hover { text-decoration: underline; }
+.cta { margin-top: 24px; }
+.check { display: flex; gap: 12px; align-items: flex-start; font: 400 .95rem/1.5 var(--f-body); text-transform: none; letter-spacing: 0; color: var(--mute); }
+.check input { width: auto; margin-top: 4px; flex: none; accent-color: var(--violet); }
+input[type="file"] { padding: 10px; }
+input[type="file"]::file-selector-button {
+  margin-right: 12px; padding: 8px 14px; border: 0; cursor: pointer;
+  background: var(--violet); color: #fff; font: 600 .95rem/1 var(--f-display); letter-spacing: .06em; text-transform: uppercase;
+}
+.u-status { min-height: 1.4em; color: var(--violet-hi); font-size: .98rem; }
+.u-status.bad { color: #ff9a9a; }
+.form .btn:disabled { opacity: .6; cursor: progress; }
+.hint { color: var(--mute); font-size: .9rem; }
+
 /* Patrocinios */
 .band {
   background: var(--panel); clip-path: polygon(0 40px, 100% 0, 100% 100%, 0 100%);
@@ -174,6 +250,18 @@ section { padding-block: 84px; }
 .rules .n { font: 500 .9rem/1.9 var(--f-mono); color: var(--violet-hi); }
 .rules b { display: block; font: italic 800 1.35rem/1.1 var(--f-display); text-transform: uppercase; margin-bottom: 4px; }
 .rules p { color: var(--mute); }
+
+/* Redes sociales */
+.nets { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 12px; margin-top: 40px; }
+.net {
+  display: block; padding: 24px 22px; border: 1px solid var(--line); text-decoration: none; min-width: 0;
+  transition: border-color .15s, background .15s;
+}
+.net b { display: block; font: italic 900 2rem/1 var(--f-display); text-transform: uppercase; margin-bottom: 18px; }
+.net span { font: 500 .78rem/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; color: var(--mute); }
+.net[href] { background: var(--panel); }
+.net[href] span { color: var(--violet-hi); }
+.net[href]:hover { border-color: var(--violet-hi); }
 
 /* Unirse */
 .join-sec { padding-bottom: 96px; }
@@ -216,8 +304,13 @@ footer small { color: var(--mute); font-size: .92rem; }
     <nav aria-label="Principal">
       <a href="#club">Club</a>
       <a href="#eventos">Eventos</a>
+      <a href="#ubicaciones">Ubicaciones</a>
+      <a href="#galeria">Galería</a>
+      <a href="#clubs">Clubs</a>
+      <a href="#staff">Staff</a>
       <a href="#patrocinios">Patrocinios</a>
       <a href="#normas">Normas</a>
+      <a href="#redes">Redes</a>
       <a class="join" href="#unirse">Unirse</a>
     </nav>
   </div>
@@ -312,6 +405,109 @@ footer small { color: var(--mute); font-size: .92rem; }
     </div>
   </section>
 
+  <section id="ubicaciones" class="tight">
+    <div class="wrap">
+      <p class="kicker">Ubicaciones</p>
+      <h2>Dónde nos movemos</h2>
+      <div class="cities">
+        <div class="city">
+          <span class="kicker">Comunidad Valenciana</span>
+          <h3>Valencia</h3>
+          <p>Quedadas y eventos del club. Fechas y puntos de encuentro por anunciar.</p>
+          <a href="#unirse">Quiero una quedada aquí</a>
+        </div>
+        <div class="city">
+          <span class="kicker">Cataluña</span>
+          <h3>Barcelona</h3>
+          <p>Quedadas y eventos del club. Fechas y puntos de encuentro por anunciar.</p>
+          <a href="#unirse">Quiero una quedada aquí</a>
+        </div>
+        <div class="city">
+          <span class="kicker">Comunidad de Madrid</span>
+          <h3>Madrid</h3>
+          <p>Quedadas y eventos del club. Fechas y puntos de encuentro por anunciar.</p>
+          <a href="#unirse">Quiero una quedada aquí</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="galeria" class="tight">
+    <div class="wrap">
+      <p class="kicker">Galería</p>
+      <h2>El club en imágenes</h2>
+      <div class="sub" id="fotos">
+        <h3>Fotos</h3>
+        <div class="folders" role="group" aria-label="Carpetas de fotos">
+          <button type="button" class="folder" data-folder="eventos" aria-pressed="true"><b>Eventos</b><span>0 fotos</span></button>
+          <button type="button" class="folder" data-folder="quedadas" aria-pressed="false"><b>Quedadas</b><span>0 fotos</span></button>
+          <button type="button" class="folder" data-folder="miembros" aria-pressed="false"><b>Miembros</b><span>0 fotos</span></button>
+        </div>
+        <div class="gallery" id="photos-grid"></div>
+        <p class="cta" id="members-cta" hidden><a class="btn" href="#subir">Sube tu coche</a></p>
+        <div class="empty" id="photos-empty"><b>Carpeta vacía</b><span id="photos-empty-text">Todavía no hay fotos en esta carpeta. Llegarán pronto.</span></div>
+      </div>
+      <div class="sub" id="videos">
+        <h3>Vídeos</h3>
+        <div class="vlist" id="videos-grid"></div>
+        <div class="empty" id="videos-empty"><b>Muy pronto</b>Aquí irán los vídeos de rodadas, eventos y proyectos del club.</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="subir" class="tight">
+    <div class="wrap">
+      <div class="split">
+        <div>
+          <p class="kicker">Miembros</p>
+          <h2>Sube tu coche</h2>
+          <p class="lead" style="margin-top:20px">Manda una foto de tu coche con tu nombre y tu Instagram. Revisamos cada foto antes de publicarla en la carpeta Miembros de la galería.</p>
+        </div>
+        <form class="form" id="upload" novalidate>
+          <div class="field">
+            <label for="u-name">Tu nombre</label>
+            <input id="u-name" type="text" maxlength="40" autocomplete="name" required>
+          </div>
+          <div class="field">
+            <label for="u-ig">Tu Instagram</label>
+            <input id="u-ig" type="text" maxlength="31" placeholder="tuusuario" autocapitalize="none" autocorrect="off" spellcheck="false" required>
+          </div>
+          <div class="field">
+            <label for="u-photo">Foto de tu coche</label>
+            <input id="u-photo" type="file" accept="image/jpeg,image/png,image/webp" required>
+            <p class="hint">Quitamos los datos ocultos de la foto, como la ubicación, antes de subirla.</p>
+          </div>
+          <label class="check" for="u-ok">
+            <input id="u-ok" type="checkbox">
+            <span>Acepto que mi nombre, mi Instagram y mi foto se publiquen en la web del club. Puedo pedir que los quiten cuando quiera.</span>
+          </label>
+          <button class="btn" type="submit" id="u-send">Enviar foto</button>
+          <p class="u-status" id="u-status" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section id="clubs" class="tight">
+    <div class="wrap">
+      <p class="kicker">Colaboradores</p>
+      <h2>Clubs colaboradores</h2>
+      <p class="section-lead">Clubs amigos con los que compartimos quedadas, rodadas y eventos.</p>
+      <div class="vlist" id="clubs-grid"></div>
+      <div class="empty" id="clubs-empty"><b>Aún sin anunciar</b>Aquí aparecerán los clubs que colaboran con nosotros. ¿Tienes un club y quieres sumarte? <a href="#unirse">Escríbenos</a>.</div>
+    </div>
+  </section>
+
+  <section id="staff" class="tight">
+    <div class="wrap">
+      <p class="kicker">Staff</p>
+      <h2>El equipo</h2>
+      <p class="section-lead">Las personas que organizan el club, atienden a los patrocinadores y mantienen todo en marcha.</p>
+      <div class="people" id="staff-grid"></div>
+      <div class="empty" id="staff-empty"><b>Presentación en camino</b>Pronto verás aquí quién forma el staff de The Black List Crew.</div>
+    </div>
+  </section>
+
   <section id="patrocinios" class="band">
     <div class="wrap">
       <div class="split">
@@ -360,6 +556,21 @@ footer small { color: var(--mute); font-size: .92rem; }
     </div>
   </section>
 
+  <section id="redes" class="tight">
+    <div class="wrap">
+      <p class="kicker">Redes sociales</p>
+      <h2>Síguenos</h2>
+      <p class="section-lead">Las fechas de las quedadas, las fotos y los vídeos del club se publican primero en nuestras redes.</p>
+      <div class="nets">
+        <a class="net" data-net="instagram" data-verb="Seguir" aria-disabled="true"><b>Instagram</b><span>Próximamente</span></a>
+        <a class="net" data-net="tiktok" data-verb="Seguir" aria-disabled="true"><b>TikTok</b><span>Próximamente</span></a>
+        <a class="net" data-net="youtube" data-verb="Suscribirse" aria-disabled="true"><b>YouTube</b><span>Próximamente</span></a>
+        <a class="net" data-net="discord" data-verb="Unirse" aria-disabled="true"><b>Discord</b><span>Próximamente</span></a>
+        <a class="net" data-net="whatsapp" data-verb="Unirse" aria-disabled="true"><b>WhatsApp</b><span>Próximamente</span></a>
+      </div>
+    </div>
+  </section>
+
   <section id="unirse" class="join-sec" style="padding-top:0">
     <div class="wrap">
       <div class="split">
@@ -376,6 +587,7 @@ footer small { color: var(--mute); font-size: .92rem; }
             <select id="motivo" name="motivo">
               <option>Unirme al club</option>
               <option>Patrocinar al club</option>
+              <option>Colaborar con mi club</option>
               <option>Proponer un evento</option>
               <option>Otra cosa</option>
             </select>
@@ -419,6 +631,202 @@ footer small { color: var(--mute); font-size: .92rem; }
 var SOCIALS = { discord: "", instagram: "", whatsapp: "", tiktok: "", youtube: "" };
 var NAMES = { discord: "Discord", instagram: "Instagram", whatsapp: "WhatsApp", tiktok: "TikTok", youtube: "YouTube" };
 
+// Servicio donde se guardan las fotos de los miembros. La clave es pública y está pensada para ir en la web.
+var BACKEND = {
+  url: "https://pmnigntvyolgsvdijhmk.supabase.co",
+  key: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InBtbmlnbnR2eW9sZ3N2ZGlqaG1rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMwMTAzNTAsImV4cCI6MjEwODU4NjM1MH0.KN6Q2Mf_D8lnYIsD9nVdVpnXleLVROX-J5cRVmM3qsw"
+};
+
+// Contenido de las secciones nuevas. Rellena las listas y se mostrarán solas.
+// Fotos: sube la imagen al repositorio (por ejemplo a la carpeta fotos) y pon su ruta.
+var PHOTOS = [];  // { src: "fotos/quedadas/quedada1.jpg", alt: "Descripción", folder: "eventos" | "quedadas" | "miembros" }
+var VIDEOS = [];  // { title: "Rodada nocturna", url: "https://..." }
+var CLUBS = [];   // { name: "Nombre del club", city: "Ciudad", url: "https://..." }
+var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" }
+
+(function () {
+  function isUrl(u) { return typeof u === "string" && /^https:\/\//.test(u); }
+  function isImg(u) { return typeof u === "string" && u.indexOf("..") < 0 && (isUrl(u) || /^[A-Za-z0-9_\-\/.]+$/.test(u)); }
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text) e.textContent = text;
+    return e;
+  }
+  function fill(gridId, emptyId, items, build) {
+    var grid = document.getElementById(gridId);
+    var empty = document.getElementById(emptyId);
+    items.forEach(function (it) { var n = build(it); if (n) grid.appendChild(n); });
+    if (grid.children.length) empty.hidden = true;
+  }
+  var FOLDERS = { eventos: "Eventos", quedadas: "Quedadas", miembros: "Miembros" };
+  var current = "eventos";
+  var MEMBERS = [];
+  var pGrid = document.getElementById("photos-grid");
+  var pEmpty = document.getElementById("photos-empty");
+  var pText = document.getElementById("photos-empty-text");
+  var cta = document.getElementById("members-cta");
+  var folderBtns = document.querySelectorAll(".folder");
+  function folderOf(p) { return FOLDERS[p.folder] ? p.folder : "eventos"; }
+  function validMember(m) {
+    return m && typeof m.name === "string" && m.name.length > 0 && m.name.length <= 40 &&
+      typeof m.instagram === "string" && /^[A-Za-z0-9._]{1,30}$/.test(m.instagram) &&
+      typeof m.photo_path === "string" && /^[a-f0-9-]{36}\.jpg$/.test(m.photo_path);
+  }
+  function memberFig(m) {
+    var f = el("figure", "member");
+    var i = el("img");
+    i.src = BACKEND.url + "/storage/v1/object/public/member-photos/" + m.photo_path;
+    i.alt = "Coche de " + m.name; i.loading = "lazy";
+    f.appendChild(i);
+    var c = el("figcaption");
+    c.appendChild(el("b", null, m.name));
+    var a = el("a", null, "@" + m.instagram);
+    a.href = "https://www.instagram.com/" + encodeURIComponent(m.instagram) + "/";
+    a.target = "_blank"; a.rel = "noopener noreferrer";
+    c.appendChild(a);
+    f.appendChild(c);
+    return f;
+  }
+  function renderPhotos() {
+    pGrid.textContent = "";
+    var shown = 0;
+    PHOTOS.forEach(function (p) {
+      if (!isImg(p.src) || folderOf(p) !== current) return;
+      var i = el("img"); i.src = p.src; i.alt = p.alt || "Foto del club"; i.loading = "lazy";
+      pGrid.appendChild(i); shown++;
+    });
+    if (current === "miembros") {
+      MEMBERS.forEach(function (m) { pGrid.appendChild(memberFig(m)); shown++; });
+    }
+    pEmpty.hidden = shown > 0;
+    cta.hidden = current !== "miembros";
+    pText.textContent = "Todavía no hay fotos en la carpeta " + FOLDERS[current] + ". Llegarán pronto.";
+    folderBtns.forEach(function (b) {
+      var k = b.getAttribute("data-folder");
+      var count = PHOTOS.filter(function (p) { return isImg(p.src) && folderOf(p) === k; }).length;
+      if (k === "miembros") count += MEMBERS.length;
+      b.setAttribute("aria-pressed", String(k === current));
+      b.querySelector("span").textContent = count + (count === 1 ? " foto" : " fotos");
+    });
+  }
+  folderBtns.forEach(function (b) {
+    b.addEventListener("click", function () { current = b.getAttribute("data-folder"); renderPhotos(); });
+  });
+  renderPhotos();
+
+  if (BACKEND.url && BACKEND.key) {
+    fetch(BACKEND.url + "/rest/v1/club_members?select=name,instagram,photo_path&approved=eq.true&order=created_at.desc&limit=100", {
+      headers: { apikey: BACKEND.key, Authorization: "Bearer " + BACKEND.key }
+    }).then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (rows) {
+        MEMBERS = (Array.isArray(rows) ? rows : []).filter(validMember);
+        renderPhotos();
+      })
+      .catch(function () {});
+  }
+  fill("videos-grid", "videos-empty", VIDEOS, function (v) {
+    if (!isUrl(v.url)) return null;
+    var a = el("a", "vcard"); a.href = v.url; a.target = "_blank"; a.rel = "noopener noreferrer";
+    a.appendChild(el("b", null, v.title || "Vídeo"));
+    a.appendChild(el("span", null, "Ver vídeo ↗"));
+    return a;
+  });
+  fill("clubs-grid", "clubs-empty", CLUBS, function (c) {
+    var ok = isUrl(c.url);
+    var n = el(ok ? "a" : "div", "vcard");
+    if (ok) { n.href = c.url; n.target = "_blank"; n.rel = "noopener noreferrer"; }
+    n.appendChild(el("b", null, c.name || "Club"));
+    n.appendChild(el("span", null, c.city || "Club amigo"));
+    return n;
+  });
+  fill("staff-grid", "staff-empty", STAFF, function (s) {
+    var d = el("div", "person");
+    if (isImg(s.photo)) { var i = el("img"); i.src = s.photo; i.alt = s.name || "Staff"; i.loading = "lazy"; d.appendChild(i); }
+    else { d.appendChild(el("div", "ph", String(s.name || "?").trim().charAt(0).toUpperCase())); }
+    d.appendChild(el("b", null, s.name || ""));
+    d.appendChild(el("span", null, s.role || ""));
+    return d;
+  });
+})();
+
+(function () {
+  var form = document.getElementById("upload");
+  if (!form) return;
+  var status = document.getElementById("u-status");
+  var btn = document.getElementById("u-send");
+  function say(msg, bad) { status.textContent = msg; status.className = "u-status" + (bad ? " bad" : ""); }
+  function uuid() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    var b = new Uint8Array(16); crypto.getRandomValues(b);
+    b[6] = (b[6] & 15) | 64; b[8] = (b[8] & 63) | 128;
+    var h = Array.prototype.map.call(b, function (x) { return ("0" + x.toString(16)).slice(-2); }).join("");
+    return h.slice(0, 8) + "-" + h.slice(8, 12) + "-" + h.slice(12, 16) + "-" + h.slice(16, 20) + "-" + h.slice(20);
+  }
+  function toJpeg(file) {
+    return new Promise(function (resolve, reject) {
+      var url = URL.createObjectURL(file);
+      var img = new Image();
+      img.onload = function () {
+        URL.revokeObjectURL(url);
+        var w = img.naturalWidth, h = img.naturalHeight, s = Math.min(1, 1600 / Math.max(w, h));
+        var c = document.createElement("canvas");
+        c.width = Math.max(1, Math.round(w * s)); c.height = Math.max(1, Math.round(h * s));
+        c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+        var q = 0.85;
+        (function attempt() {
+          c.toBlob(function (b) {
+            if (!b) return reject(new Error("blob"));
+            if (b.size > 3000000 && q > 0.4) { q -= 0.15; return attempt(); }
+            if (b.size > 3000000) return reject(new Error("big"));
+            resolve(b);
+          }, "image/jpeg", q);
+        })();
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error("img")); };
+      img.src = url;
+    });
+  }
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var name = document.getElementById("u-name").value.trim();
+    var ig = document.getElementById("u-ig").value.trim().replace(/^@/, "");
+    var file = document.getElementById("u-photo").files[0];
+    if (!name || name.length > 40) return say("Escribe tu nombre, de 1 a 40 letras.", true);
+    if (!/^[A-Za-z0-9._]{1,30}$/.test(ig)) return say("Revisa tu Instagram: solo letras, números, puntos y guiones bajos.", true);
+    if (!file) return say("Elige una foto de tu coche.", true);
+    if (!document.getElementById("u-ok").checked) return say("Marca la casilla para que podamos publicar tu foto.", true);
+    if (!BACKEND.url || !BACKEND.key) return say("La subida de fotos aún no está activa.", true);
+    btn.disabled = true;
+    say("Subiendo tu foto…");
+    var path = uuid() + ".jpg";
+    var auth = { apikey: BACKEND.key, Authorization: "Bearer " + BACKEND.key };
+    toJpeg(file).then(function (blob) {
+      return fetch(BACKEND.url + "/storage/v1/object/member-photos/" + path, {
+        method: "POST",
+        headers: { apikey: auth.apikey, Authorization: auth.Authorization, "Content-Type": "image/jpeg", "x-upsert": "false" },
+        body: blob
+      });
+    }).then(function (r) {
+      if (!r.ok) throw new Error("upload");
+      return fetch(BACKEND.url + "/rest/v1/club_members", {
+        method: "POST",
+        headers: { apikey: auth.apikey, Authorization: auth.Authorization, "Content-Type": "application/json", Prefer: "return=minimal" },
+        body: JSON.stringify({ name: name, instagram: ig, photo_path: path })
+      });
+    }).then(function (r) {
+      if (!r.ok) throw new Error("row");
+      form.reset();
+      say("¡Recibido! Revisaremos tu foto y saldrá en la carpeta Miembros cuando la aprobemos.");
+    }).catch(function (err) {
+      var m = err && err.message;
+      if (m === "img") say("No podemos leer esa foto. Prueba con una JPG o PNG.", true);
+      else if (m === "big") say("La foto pesa demasiado. Prueba con otra más pequeña.", true);
+      else say("No se pudo enviar. Revisa tu conexión e inténtalo otra vez.", true);
+    }).then(function () { btn.disabled = false; });
+  });
+})();
+
 (function () {
   var box = document.getElementById("socials");
   var note = document.getElementById("socials-note");
@@ -432,6 +840,15 @@ var NAMES = { discord: "Discord", instagram: "Instagram", whatsapp: "WhatsApp", 
     }
   });
   if (any) note.hidden = true;
+
+  document.querySelectorAll(".net").forEach(function (n) {
+    var url = SOCIALS[n.getAttribute("data-net")];
+    if (typeof url === "string" && /^https:\/\//.test(url)) {
+      n.href = url; n.target = "_blank"; n.rel = "noopener noreferrer";
+      n.removeAttribute("aria-disabled");
+      n.querySelector("span").textContent = (n.getAttribute("data-verb") || "Seguir") + " ↗";
+    }
+  });
 
   var form = document.getElementById("contact");
   var out = document.getElementById("out");
