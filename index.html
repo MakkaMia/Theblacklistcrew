@@ -2161,7 +2161,9 @@ function close(e){if(e)e.preventDefault();try{sessionStorage.setItem("blc-intro"
 var triedBlob=false;
 function viaBlob(){try{var s=v.getAttribute("src")||"";var m=/^data:([^;]+);base64,(.*)$/.exec(s);if(!m)return false;var bin=atob(m[2]),a=new Uint8Array(bin.length);for(var i=0;i<bin.length;i++)a[i]=bin.charCodeAt(i);v.src=URL.createObjectURL(new Blob([a],{type:m[1]}));v.load();var q=v.play();if(q&&q.catch)q.catch(function(){needPlay();});return true;}catch(e){return false;}}
 v.addEventListener("ended",finish);
-v.addEventListener("error",function(){if(!triedBlob){triedBlob=true;if(viaBlob())return;}finish();});
+var began=false;v.addEventListener("playing",function(){began=true;});
+function skipIntro(){if(finished)return;finished=true;box.hidden=true;document.documentElement.style.overflow="";try{v.removeAttribute("src");v.load();}catch(e){}}
+v.addEventListener("error",function(){if(!triedBlob){triedBlob=true;if(viaBlob())return;}if(began)finish();else skipIntro();});
 sk.addEventListener("click",finish);
 en.addEventListener("click",close);
 sn.addEventListener("click",function(){v.muted=!v.muted;sn.setAttribute("aria-pressed",v.muted?"false":"true");sn.textContent=v.muted?"Activar sonido":"Silenciar";});
