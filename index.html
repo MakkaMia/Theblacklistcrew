@@ -2146,7 +2146,8 @@ var box=document.getElementById("intro"),v=document.getElementById("intro-v"),en
 if(!box||!v)return;
 var seen=false;try{seen=sessionStorage.getItem("blc-intro")==="1";}catch(e){}
 var h=(location.hash||"").replace("#","");
-if(seen||(h&&h!=="inicio"))return;
+var force=false;try{force=/[?&]intro(=|&|$)/.test(location.search);}catch(e){}
+if(!force&&(seen||(h&&h!=="inicio")))return;
 box.hidden=false;document.documentElement.style.overflow="hidden";
 var finished=false;
 function finish(){if(finished)return;finished=true;box.classList.add("done");en.hidden=false;try{v.pause();}catch(e){}setTimeout(function(){try{en.focus({preventScroll:true});}catch(e){}},50);}
