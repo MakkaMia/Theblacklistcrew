@@ -339,6 +339,10 @@ section { padding-block: 84px; }
 .member a:hover { text-decoration: underline; }
 .cta { margin-top: 24px; }
 #m-login, #m-resetf { max-width: 520px; width: 100%; }
+.wa-box { max-width: 520px; display: grid; gap: 16px; margin-top: 18px; }
+.wa-state { margin: 0; color: #d9d3ea; }
+.wa-state b { color: #fff; }
+.wa-box .row { display: flex; gap: 12px; flex-wrap: wrap; }
 .acct { display: grid; gap: 18px; }
 .acct[hidden] { display: none; }
 .pw { position: relative; }
@@ -1117,7 +1121,7 @@ body{background:#050507}
         <ul>
           <li><b>Formulario «Sube tu coche»:</b> nombre, Instagram, ciudad, número de móvil y foto de tu coche. Los usamos para gestionar tu participación en el club, contactarte y, con tu autorización, publicar en la galería tu foto, nombre e Instagram.</li>
           <li><b>Mercado del club:</b> título, descripción, precio, ciudad, nombre, fotos y los datos de contacto que tú elijas incluir (móvil, Instagram, enlace). Los usamos para revisar y, con tu autorización, publicar tu anuncio. <b>Estos datos de contacto se publican en la web y son visibles para cualquiera</b>; incluye solo los que quieras hacer públicos. Puedes pedir su retirada en cualquier momento desde «Unirse».</li>
-          <li><b>Zona de miembros y foro:</b> nombre, correo y contraseña (esta última se guarda cifrada) para crear tu cuenta y dar acceso a los avisos internos del club, y los mensajes que publiques en el foro privado. En el foro tu nombre es visible para el resto de miembros aprobados; puedes borrar tus mensajes cuando quieras y, si te das de baja, se eliminan con tu cuenta.</li>
+          <li><b>Zona de miembros y foro:</b> nombre, correo, número de WhatsApp (solo para comprobar que estás en el grupo del club; no se publica) y contraseña (esta última se guarda cifrada) para crear tu cuenta y dar acceso a los avisos internos del club, y los mensajes que publiques en el foro privado. En el foro tu nombre es visible para el resto de miembros aprobados; puedes borrar tus mensajes cuando quieras y, si te das de baja, se eliminan con tu cuenta.</li>
           <li><b>Formulario de contacto:</b> el mensaje se prepara en tu dispositivo y lo envías tú por el canal que elijas; la web no lo guarda.</li>
         </ul>
         <h3>Base jurídica</h3>
@@ -1175,6 +1179,7 @@ body{background:#050507}
           <li>Hay que ser <b>mayor de edad</b> para crear una cuenta.</li>
           <li>Los datos que das deben ser ciertos. La cuenta es personal: no compartas tu contraseña ni la cedas a otra persona.</li>
           <li>El club revisa y aprueba las cuentas nuevas, y puede rechazar o dar de baja una cuenta que incumpla estas condiciones.</li>
+          <li>Para tener acceso hay que <b>estar en el grupo de WhatsApp del club</b> con el número que indicaste al registrarte. Si no estás en el grupo, no se aprueba tu acceso, y si sales del grupo se te retira.</li>
           <li>Puedes darte de baja cuando quieras desde <a href="#unirse">Unirse</a>. Tus mensajes del foro se eliminan con tu cuenta.</li>
         </ul>
         <h3>Cómo comportarte</h3>
@@ -1272,6 +1277,11 @@ body{background:#050507}
               <input id="j-email" name="correo" type="email" autocomplete="email">
             </div>
             <div class="field">
+              <label for="j-wa">Tu número de WhatsApp</label>
+              <input id="j-wa" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="+34 600 000 000">
+              <span class="fine">Tienes que estar en el grupo de WhatsApp del club con este número. Si no estás en el grupo, tu acceso no se aprueba, y si sales del grupo se te retira.</span>
+            </div>
+            <div class="field">
               <label for="j-pass">Contraseña (mínimo 8 caracteres)</label>
               <div class="pw"><input id="j-pass" type="password" autocomplete="new-password" minlength="8"><button type="button" class="pwj" data-for="j-pass" aria-label="Mostrar la contraseña">Ver</button></div>
               <span class="meter" id="j-meter" aria-live="polite"></span>
@@ -1365,6 +1375,7 @@ body{background:#050507}
         <div class="cities-tabs" id="m-tabs" role="group" aria-label="Secciones">
           <button type="button" class="ctab mtab" data-tab="resumen" aria-pressed="true">Avisos</button>
           <button type="button" class="ctab mtab" data-tab="foro" aria-pressed="false">Foro</button>
+          <button type="button" class="ctab mtab" data-tab="wa" aria-pressed="false">WhatsApp</button>
         </div>
         <div id="m-tab-resumen">
         <div class="m-cols">
@@ -1379,6 +1390,23 @@ body{background:#050507}
             <div class="empty" id="m-links-empty"><b>Sin enlaces</b>Aquí aparecerán los grupos y enlaces internos del club.</div>
           </div>
         </div>
+        </div>
+
+        <div id="m-tab-wa" hidden>
+          <p class="section-lead">Conecta tu WhatsApp para entrar al grupo del club. Tu número queda registrado en la base de datos del club y <b>solo lo ve el staff</b>. Tu acceso a Miembros depende de estar en el grupo: si sales, se te retira.</p>
+          <div class="form wa-box">
+            <p class="wa-state" id="wa-state"></p>
+            <div class="field" id="wa-field">
+              <label for="wa-num">Tu número de WhatsApp</label>
+              <input id="wa-num" type="tel" inputmode="tel" autocomplete="tel" placeholder="+34 600 000 000">
+            </div>
+            <div class="row">
+              <button class="btn" type="button" id="wa-connect">Conectar WhatsApp</button>
+              <button class="btn ghost" type="button" id="wa-change" hidden>Cambiar número</button>
+            </div>
+            <p class="u-status" id="wa-status" role="status"></p>
+            <p class="fine" id="wa-nolink" hidden>El enlace del grupo todavía no está disponible. El club lo publicará en «Enlaces privados».</p>
+          </div>
         </div>
 
         <div id="m-tab-foro" hidden>
@@ -1765,11 +1793,12 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
     if (recTok) { show("reset"); return; }
     ensureSession().then(function (s) {
       if (!s) { show("out"); return; }
-      return get("member_profiles?select=name,approved&limit=1", s).then(function (res) {
+      return get("member_profiles?select=name,approved,whatsapp&limit=1", s).then(function (res) {
         if (res.status === 401) { save(null); show("out"); return; }
         var p = Array.isArray(res.data) ? res.data[0] : null;
         if (!p || !p.approved) { show("pending"); return; }
         document.getElementById("m-name").textContent = p.name || "miembro";
+        waSet(p.whatsapp || "");
         show("in");
         showTab("resumen");
         renderPrivate(s);
@@ -1833,6 +1862,46 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
       .then(function () { btn.disabled = false; });
   });
 
+  // ---- WhatsApp
+  var waNum = "";
+  function waGroupUrl() { var a = document.querySelector("#m-links a.vcard"); var found = null; Array.prototype.forEach.call(document.querySelectorAll("#m-links a.vcard"), function (x) { if (!found && /whatsapp/i.test(x.textContent)) found = x.href; }); return found; }
+  function waSet(n) {
+    waNum = n || "";
+    var has = !!waNum;
+    var masked = has ? waNum.replace(/\d(?=\d{3})/g, "•") : "";
+    document.getElementById("wa-state").innerHTML = has ? "WhatsApp conectado: <b></b>" : "Todavía no has conectado tu WhatsApp.";
+    if (has) document.querySelector("#wa-state b").textContent = masked;
+    document.getElementById("wa-field").hidden = has;
+    document.getElementById("wa-change").hidden = !has;
+    document.getElementById("wa-connect").textContent = has ? "Abrir el grupo de WhatsApp" : "Conectar WhatsApp";
+  }
+  function waSay(m, bad) { var e = document.getElementById("wa-status"); e.textContent = m || ""; e.className = "u-status" + (bad ? " bad" : ""); }
+  function waOpen() {
+    var url = waGroupUrl();
+    document.getElementById("wa-nolink").hidden = !!url;
+    if (!url) return waSay("Número guardado, pero el enlace del grupo aún no está disponible.", true);
+    waSay("Número guardado. Abriendo el grupo…");
+    var w = window.open(url, "_blank", "noopener"); if (!w) location.href = url;
+  }
+  document.getElementById("wa-change").addEventListener("click", function () {
+    document.getElementById("wa-field").hidden = false; document.getElementById("wa-num").value = "";
+    document.getElementById("wa-change").hidden = true; document.getElementById("wa-connect").textContent = "Guardar y abrir el grupo"; waSay(""); waNum = "";
+  });
+  document.getElementById("wa-connect").addEventListener("click", function () {
+    if (waNum) return waOpen();
+    var n = document.getElementById("wa-num").value.replace(/[\s\-.()]/g, "");
+    if (!/^\+?[0-9]{9,15}$/.test(n)) return waSay("Escribe tu número con el prefijo, por ejemplo +34600000000.", true);
+    var btn = document.getElementById("wa-connect"); btn.disabled = true; waSay("Guardando…");
+    ensureSession().then(function (s) {
+      if (!s) throw new Error("auth");
+      return fetch(BACKEND.url + "/rest/v1/rpc/set_my_whatsapp", { method: "POST", headers: authHeaders(s.access_token), body: JSON.stringify({ p: n }) });
+    }).then(function (r) {
+      if (!r.ok) { waSay("No se pudo guardar el número. Revísalo e inténtalo de nuevo.", true); return; }
+      waSet(n); waOpen();
+    }).catch(function () { waSay("No se pudo conectar. Inténtalo de nuevo.", true); })
+      .then(function () { btn.disabled = false; });
+  });
+
   // ---- Foro de miembros
   var FCATS = { averias: "Averías y diagnosis", mecanica: "Mecánica y mantenimiento", tuning: "Tuning y modificaciones", compras: "Compras y consejos", itv: "ITV y normativa", general: "General" };
   var fCat = "", fOpen = null, fSession = null;
@@ -1852,6 +1921,7 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
   function showTab(tab) {
     document.getElementById("m-tab-resumen").hidden = tab !== "resumen";
     document.getElementById("m-tab-foro").hidden = tab !== "foro";
+    document.getElementById("m-tab-wa").hidden = tab !== "wa";
     Array.prototype.forEach.call(document.querySelectorAll(".mtab"), function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-tab") === tab)); });
     if (tab === "foro") { if (fOpen) openTopic(fOpen); else loadTopics(); }
   }
@@ -1992,7 +2062,7 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
     document.getElementById("coche-field").hidden = bye;
     var join = motivoSel.value === "Unirme al club" && !!(BACKEND && BACKEND.url && BACKEND.key);
     document.getElementById("acct").hidden = !join;
-    ["j-email", "j-pass", "j-pass2"].forEach(function (id) { document.getElementById(id).required = join; });
+    ["j-email", "j-wa", "j-pass", "j-pass2"].forEach(function (id) { document.getElementById(id).required = join; });
     var msg = document.getElementById("mensaje");
     msg.required = !bye;
     document.getElementById("mensaje-label").textContent = bye ? "Algo que quieras contarnos (opcional)" : "Mensaje";
@@ -2017,6 +2087,8 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
       var why = String(d.get("baja") || "").trim();
       if (why) lines.push("Motivo: " + why);
     } else if (coche) lines.push("Coche: " + coche);
+    var waMsg = document.getElementById("acct").hidden ? "" : document.getElementById("j-wa").value.trim();
+    if (waMsg) lines.push("WhatsApp: " + waMsg);
     lines.push("", String(d.get("mensaje")).trim());
     result.value = lines.join("\n");
     out.hidden = false;
@@ -2032,6 +2104,8 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
     var email = document.getElementById("j-email").value.trim();
     var pass = document.getElementById("j-pass").value;
     if (name.length > 40) return say2("Tu nombre o alias puede tener como máximo 40 letras.", true);
+    var wa = document.getElementById("j-wa").value.replace(/[\s\-.()]/g, "");
+    if (!/^\+?[0-9]{9,15}$/.test(wa)) return say2("Escribe tu número de WhatsApp con el prefijo, por ejemplo +34600000000.", true);
     if (pass.length < 8) return say2("La contraseña debe tener al menos 8 caracteres.", true);
     if (pass !== document.getElementById("j-pass2").value) return say2("Las dos contraseñas no coinciden.", true);
     if (!document.getElementById("j-terms").checked) return say2("Para enviar la solicitud tienes que aceptar la Normativa, los Términos de uso y la Política de privacidad.", true);
@@ -2041,7 +2115,7 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
     fetch(BACKEND.url + "/auth/v1/signup", {
       method: "POST",
       headers: { apikey: BACKEND.key, Authorization: "Bearer " + BACKEND.key, "Content-Type": "application/json" },
-      body: JSON.stringify({ email: email, password: pass, data: { name: name, terms_version: "2026-11-12", terms_accepted_at: new Date().toISOString(), adult: true } })
+      body: JSON.stringify({ email: email, password: pass, data: { name: name, whatsapp: wa, terms_version: "2026-11-12", terms_accepted_at: new Date().toISOString(), adult: true } })
     }).then(function (r) { return { ok: r.ok }; })
       .then(function (res) {
         if (!res.ok) { say2("No se pudo crear tu acceso. Revisa el correo y que la contraseña tenga al menos 8 caracteres.", true); return; }
