@@ -339,6 +339,21 @@ section { padding-block: 84px; }
 .member a:hover { text-decoration: underline; }
 .cta { margin-top: 24px; }
 #m-login, #m-resetf { max-width: 520px; width: 100%; }
+
+.adm-sub{margin:18px 0 6px}
+.adm-card{border:1px solid #1e1b2e;background:#0d0b16;padding:16px 18px;margin:12px 0;display:flex;gap:16px;flex-wrap:wrap;align-items:flex-start}
+.adm-card.unread{border-color:var(--v)}
+.adm-card .adm-main{flex:1 1 260px;min-width:0}
+.adm-card .adm-main b{display:block;overflow-wrap:anywhere}
+.adm-card .adm-meta{color:var(--mute);font-size:.85rem;margin-top:4px;overflow-wrap:anywhere}
+.adm-card p{margin:8px 0 0;white-space:pre-wrap;overflow-wrap:anywhere}
+.adm-card img.adm-img{width:150px;height:110px;object-fit:cover;background:#000;border:1px solid #1e1b2e}
+.adm-acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+.adm-acts .btn{padding:9px 14px;font-size:.8rem}
+.adm-badge{display:inline-block;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;border:1px solid var(--v);color:#c4b5fd;margin-left:8px}
+.adm-box{border:1px solid #1e1b2e;padding:16px 18px;margin:12px 0}
+.adm-box textarea{min-height:110px}
+.hp-f{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .m-danger { margin-top: 48px; padding-top: 22px; border-top: 1px solid #1e1b2e; }
 .m-danger .linklike { color: var(--mute); font-size: .9rem; }
 #d-box { max-width: 520px; margin-top: 16px; display: grid; gap: 16px; }
@@ -1130,7 +1145,7 @@ body{background:#050507}
           <li><b>Formulario «Sube tu coche»:</b> nombre, Instagram, ciudad, número de móvil y foto de tu coche. Los usamos para gestionar tu participación en el club, contactarte y, con tu autorización, publicar en la galería tu foto, nombre e Instagram.</li>
           <li><b>Mercado del club:</b> título, descripción, precio, ciudad, nombre, fotos y los datos de contacto que tú elijas incluir (móvil, Instagram, enlace). Los usamos para revisar y, con tu autorización, publicar tu anuncio. <b>Estos datos de contacto se publican en la web y son visibles para cualquiera</b>; incluye solo los que quieras hacer públicos. Puedes pedir su retirada en cualquier momento desde «Unirse».</li>
           <li><b>Zona de miembros y foro:</b> nombre, correo, contraseña y, si lo conectas desde la pestaña «WhatsApp», tu número (solo para comprobar que estás en el grupo del club; no se publica) (esta última se guarda cifrada) para crear tu cuenta y dar acceso a los avisos internos del club, y los mensajes que publiques en el foro privado. En el foro tu nombre es visible para el resto de miembros aprobados; puedes borrar tus mensajes cuando quieras y, si te das de baja, se eliminan con tu cuenta.</li>
-          <li><b>Formulario de contacto:</b> el mensaje se prepara en tu dispositivo y lo envías tú por el canal que elijas; la web no lo guarda.</li>
+          <li><b>Formulario de contacto («Escríbenos» y «Darme de baja»):</b> nombre o alias, el correo o teléfono que indiques para que te respondamos, el mensaje y los datos que añadas (por ejemplo, ciudad y fecha de un evento). Los guardamos para atender tu consulta y solo los ve el staff del club. Los conservamos mientras sea necesario para responderte y, como máximo, 12 meses; puedes pedir que los borremos en cualquier momento. Guardamos también la fecha y la versión de la política que aceptaste.</li>
         </ul>
         <h3>Base jurídica</h3>
         <p>Tu consentimiento (art. 6.1.a del Reglamento (UE) 2016/679, RGPD). Es voluntario y puedes retirarlo en cualquier momento sin que afecte a lo ya realizado. Los consentimientos de publicación y de tratamiento son independientes.</p>
@@ -1324,11 +1339,19 @@ body{background:#050507}
             <label for="coche">Tu coche</label>
             <input id="coche" name="coche" type="text" placeholder="Marca, modelo y año">
           </div>
+          <div class="field" id="reply-field" hidden>
+            <label for="c-reply">Correo o teléfono para responderte</label>
+            <input id="c-reply" name="reply" type="text" maxlength="200" autocomplete="email">
+          </div>
           <div class="field">
             <label for="mensaje" id="mensaje-label">Mensaje</label>
             <textarea id="mensaje" name="mensaje" required></textarea>
           </div>
-          <button class="btn" type="submit">Preparar mensaje</button>
+          <div class="hp-f" aria-hidden="true"><label for="c-hp">No rellenar</label><input id="c-hp" type="text" tabindex="-1" autocomplete="off"></div>
+          <div class="checks" id="c-consent-wrap" hidden>
+            <label class="check" for="c-consent"><input id="c-consent" type="checkbox"><span>Acepto que The Black List Crew guarde este mensaje y mis datos de contacto para responderme, según la <a href="#privacidad" target="_blank" rel="noopener">Política de privacidad</a>.</span></label>
+          </div>
+          <button class="btn" type="submit">Enviar mensaje</button>
           <p class="u-status" id="j-status" role="status"></p>
           <div class="out" id="out" hidden>
             <p>Copia este texto y envíalo por los canales del club.</p>
@@ -1415,6 +1438,7 @@ body{background:#050507}
           <button type="button" class="ctab mtab" data-tab="resumen" aria-pressed="true">Avisos</button>
           <button type="button" class="ctab mtab" data-tab="foro" aria-pressed="false">Foro</button>
           <button type="button" class="ctab mtab" data-tab="wa" aria-pressed="false">WhatsApp</button>
+          <button type="button" class="ctab mtab" data-tab="admin" aria-pressed="false" id="m-admin-btn" hidden>Administración</button>
         </div>
         <div id="m-tab-resumen">
         <div class="m-cols">
@@ -1446,6 +1470,19 @@ body{background:#050507}
             <p class="u-status" id="wa-status" role="status"></p>
             <p class="fine" id="wa-nolink" hidden>El enlace del grupo todavía no está disponible. El club lo publicará en «Enlaces privados».</p>
           </div>
+        </div>
+
+        <div id="m-tab-admin" hidden>
+          <p class="section-lead">Panel del staff. Solo lo ves tú: nadie más tiene acceso a estos datos.</p>
+          <div class="cities-tabs" id="a-tabs" role="group" aria-label="Administración">
+            <button type="button" class="ctab atab" data-a="miembros" aria-pressed="true">Miembros</button>
+            <button type="button" class="ctab atab" data-a="fotos" aria-pressed="false">Fotos</button>
+            <button type="button" class="ctab atab" data-a="mercado" aria-pressed="false">Mercado</button>
+            <button type="button" class="ctab atab" data-a="mensajes" aria-pressed="false">Mensajes</button>
+            <button type="button" class="ctab atab" data-a="contenido" aria-pressed="false">Eventos y avisos</button>
+          </div>
+          <p class="u-status" id="a-status" role="status"></p>
+          <div id="a-body"></div>
         </div>
 
         <div id="m-tab-foro" hidden>
@@ -1843,6 +1880,203 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
     }).catch(function () {});
   }
 
+
+  /* ===== Administración (solo admins; la base de datos lo vuelve a comprobar en cada acción) ===== */
+  var admTab = "miembros", isAdm = false;
+  function aSay(m, bad) { var e = document.getElementById("a-status"); e.textContent = m || ""; e.className = "u-status" + (bad ? " bad" : ""); }
+  function aBody() { var b = document.getElementById("a-body"); b.textContent = ""; return b; }
+  function twice(btn, label, fn) {
+    var armed = false, orig = btn.textContent;
+    btn.addEventListener("click", function () {
+      if (!armed) { armed = true; btn.textContent = "¿Seguro? Pulsa otra vez"; setTimeout(function () { armed = false; btn.textContent = orig; }, 4000); return; }
+      armed = false; btn.textContent = orig; fn();
+    });
+  }
+  function abtn(txt, fn, ghost, sure) { var b = node("button", "btn" + (ghost ? " ghost" : ""), txt); b.type = "button"; if (sure) twice(b, txt, fn); else b.addEventListener("click", fn); return b; }
+  function rpc(name, body) { return api("POST", "rpc/" + name, body || {}).then(function (r) { if (!r.ok) throw new Error((r.data && (r.data.message || r.data.hint)) || "error"); return r.data; }); }
+  function fail(e) { aSay("No se pudo completar: " + (e && e.message === "forbidden" ? "no tienes permiso." : "inténtalo de nuevo."), true); }
+  function card(title, meta, text) {
+    var c = node("div", "adm-card"), m = node("div", "adm-main");
+    m.appendChild(node("b", null, title));
+    if (meta) m.appendChild(node("div", "adm-meta", meta));
+    if (text) m.appendChild(node("p", null, text));
+    c.appendChild(m); c._main = m; return c;
+  }
+  function acts(c, list) { var d = node("div", "adm-acts"); list.forEach(function (b) { d.appendChild(b); }); c._main.appendChild(d); }
+  function storageUrl(kind, bucket, path) { return BACKEND.url + "/storage/v1/object/" + kind + "/" + bucket + "/" + path; }
+  function authImg(img, bucket, path) {
+    ensureSession().then(function (se) {
+      if (!se) return;
+      return fetch(storageUrl("authenticated", bucket, path), { headers: { apikey: BACKEND.key, Authorization: "Bearer " + se.access_token } })
+        .then(function (r) { return r.ok ? r.blob() : null; })
+        .then(function (bl) { if (bl) { img._blob = bl; img.src = URL.createObjectURL(bl); } });
+    }).catch(function () {});
+  }
+  function pubImg(bucket, path) {
+    var i = node("img", "adm-img"); i.alt = ""; i.loading = "lazy";
+    if (typeof path === "string" && /^[A-Za-z0-9._\/-]+$/.test(path)) i.src = storageUrl("public", bucket, path);
+    return i;
+  }
+  function admShow(t) {
+    admTab = t; aSay("");
+    Array.prototype.forEach.call(document.querySelectorAll(".atab"), function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-a") === t)); });
+    ({ miembros: admMembers, fotos: admPhotos, mercado: admListings, mensajes: admMessages, contenido: admContent })[t]();
+  }
+  Array.prototype.forEach.call(document.querySelectorAll(".atab"), function (b) { b.addEventListener("click", function () { admShow(b.getAttribute("data-a")); }); });
+
+  function admMembers() {
+    var body = aBody(); aSay("Cargando…");
+    rpc("admin_members").then(function (rows) {
+      aSay("");
+      var pend = rows.filter(function (r) { return !r.approved; }).length;
+      body.appendChild(node("h3", "adm-sub", "Pendientes de aprobar (" + pend + ") y miembros (" + (rows.length - pend) + ")"));
+      rows.forEach(function (r) {
+        var c = card(String(r.name || "Sin nombre"), String(r.email || "") + " · alta " + when(r.created_at), null);
+        if (r.is_admin) c.firstChild.firstChild.appendChild(node("span", "adm-badge", "Admin"));
+        else c.firstChild.firstChild.appendChild(node("span", "adm-badge", r.approved ? "Activo" : "Pendiente"));
+        var wm = node("div", "adm-meta");
+        if (r.whatsapp && /^[+\d\s()-]{6,25}$/.test(r.whatsapp)) { var a = node("a", null, "WhatsApp: " + r.whatsapp); a.href = "https://wa.me/" + r.whatsapp.replace(/\D/g, ""); a.target = "_blank"; a.rel = "noopener noreferrer"; wm.appendChild(a); } else wm.textContent = "WhatsApp: sin conectar";
+        c._main.appendChild(wm);
+        var meId = myId(fSession);
+        var adminBtn = r.is_admin
+          ? (r.user_id === meId ? null : abtn("Quitar administrador", function () { rpc("admin_set_admin", { p_user: r.user_id, p_make: false }).then(admMembers).catch(fail); }, true, true))
+          : abtn("Hacer administrador", function () { rpc("admin_set_admin", { p_user: r.user_id, p_make: true }).then(admMembers).catch(fail); }, true, true);
+        if (adminBtn) acts(c, [adminBtn]);
+        if (!r.is_admin) {
+          acts(c, [r.approved
+            ? abtn("Revocar acceso", function () { rpc("admin_set_member", { p_user: r.user_id, p_approved: false }).then(admMembers).catch(fail); }, true, true)
+            : abtn("Aprobar", function () { rpc("admin_set_member", { p_user: r.user_id, p_approved: true }).then(admMembers).catch(fail); })]);
+        }
+        body.appendChild(c);
+      });
+      var bx = node("div", "adm-box");
+      bx.appendChild(node("h3", null, "Revisar quién sigue en el grupo de WhatsApp"));
+      bx.appendChild(node("p", "fine", "Pega aquí la lista de números que siguen en el grupo (uno por línea o separados por comas). A quien tenga acceso y su número no esté en la lista se le retira el acceso. Si pegas la lista incompleta, retirarás a gente que sí está: revísala antes."));
+      var ta = node("textarea"); ta.id = "a-sync"; ta.setAttribute("aria-label", "Números del grupo"); bx.appendChild(ta);
+      var out = node("p", "u-status"); 
+      bx.appendChild(abtn("Retirar a quien ya no está", function () {
+        var nums = ta.value.split(/[\n,;]+/).map(function (x) { return x.trim(); }).filter(function (x) { return x.replace(/\D/g, "").length >= 6; });
+        if (nums.length < 2) { out.textContent = "Pega la lista completa del grupo (al menos 2 números)."; out.className = "u-status bad"; return; }
+        rpc("admin_sync_whatsapp", { numbers: nums }).then(function (res) {
+          out.className = "u-status";
+          out.textContent = res.length ? "Acceso retirado a: " + res.map(function (x) { return x.name; }).join(", ") + "." : "Nadie que retirar: todos los miembros activos están en la lista.";
+          admMembersSoft();
+        }).catch(fail);
+      }, false, true));
+      bx.appendChild(out); body.appendChild(bx);
+    }).catch(fail);
+  }
+  function admMembersSoft() { setTimeout(function () { if (admTab === "miembros") { var t = document.getElementById("a-sync"); var v = t ? t.value : ""; admMembers(); setTimeout(function () { var n = document.getElementById("a-sync"); if (n) n.value = v; }, 400); } }, 1500); }
+
+  function admPhotos() {
+    var body = aBody(); aSay("Cargando…");
+    rpc("admin_list_photos").then(function (rows) {
+      aSay(rows.length ? "" : "No hay fotos todavía.");
+      rows.forEach(function (r) {
+        var c = card(String(r.author_name || "Miembro") + " · " + String(r.city || ""), when(r.created_at) + " · estado: " + r.status, [r.vehicle_label, r.caption].filter(Boolean).join(" — "));
+        var img = node("img", "adm-img"); img.alt = "Foto enviada"; c.insertBefore(img, c.firstChild);
+        if (r.status === "aprobada") { var pi = pubImg("photos-public", r.public_path); img.replaceWith(pi); }
+        else authImg(img, "photos-pending", r.pending_path);
+        var list = [];
+        if (r.status !== "aprobada") list.push(abtn("Aprobar", function () {
+          var bl = img._blob; if (!bl) { aSay("La foto aún no ha cargado.", true); return; }
+          var name = (window.crypto && crypto.randomUUID ? crypto.randomUUID() : "") + ".jpg";
+          ensureSession().then(function (se) {
+            return fetch(storageUrl("", "photos-public", name).replace("/object//", "/object/"), { method: "POST", headers: { apikey: BACKEND.key, Authorization: "Bearer " + se.access_token, "Content-Type": "image/jpeg" }, body: bl });
+          }).then(function (u) { if (!u.ok) throw new Error("upload"); return rpc("admin_moderate_photo", { p_id: r.id, p_action: "aprobar", p_public_path: name }); }).then(admPhotos).catch(fail);
+        }));
+        if (r.status === "pendiente") list.push(abtn("Rechazar", function () { rpc("admin_moderate_photo", { p_id: r.id, p_action: "rechazar" }).then(admPhotos).catch(fail); }, true, true));
+        if (r.status === "aprobada") list.push(abtn("Retirar de la galería", function () { rpc("admin_moderate_photo", { p_id: r.id, p_action: "retirar" }).then(admPhotos).catch(fail); }, true, true));
+        if (list.length) acts(c, list);
+        body.appendChild(c);
+      });
+    }).catch(fail);
+  }
+
+  function admListings() {
+    var body = aBody(); aSay("Cargando…");
+    rpc("admin_list_listings").then(function (rows) {
+      aSay(rows.length ? "" : "No hay anuncios todavía.");
+      rows.forEach(function (r) {
+        var price = r.price != null ? " · " + Number(r.price).toLocaleString("es-ES") + " €" : "";
+        var c = card(String(r.title || "Sin título"), [r.kind, r.category, r.city].filter(Boolean).join(" · ") + price + " · " + when(r.created_at), r.description);
+        c.firstChild.firstChild.appendChild(node("span", "adm-badge", r.approved ? "Publicado" : "Pendiente"));
+        c._main.appendChild(node("div", "adm-meta", "Vendedor: " + [r.seller_name, r.phone, r.instagram].filter(Boolean).join(" · ")));
+        var ph = Array.isArray(r.photo_paths) ? r.photo_paths.slice(0, 3) : [];
+        if (ph.length) { var row = node("div", "adm-acts"); ph.forEach(function (x) { row.appendChild(pubImg("listing-photos", x)); }); c._main.appendChild(row); }
+        acts(c, [
+          r.approved ? abtn("Ocultar", function () { rpc("admin_listing_action", { p_id: r.id, p_action: "ocultar" }).then(admListings).catch(fail); }, true)
+                     : abtn("Aprobar", function () { rpc("admin_listing_action", { p_id: r.id, p_action: "aprobar" }).then(admListings).catch(fail); }),
+          abtn("Borrar", function () { rpc("admin_listing_action", { p_id: r.id, p_action: "borrar" }).then(admListings).catch(fail); }, true, true)
+        ]);
+        body.appendChild(c);
+      });
+    }).catch(fail);
+  }
+
+  function admMessages() {
+    var body = aBody(); aSay("Cargando…");
+    rpc("admin_list_contact").then(function (rows) {
+      aSay(rows.length ? "" : "No hay mensajes todavía.");
+      rows.forEach(function (r) {
+        var c = card(String(r.name) + " — " + String(r.motivo), when(r.created_at) + " · " + [r.email, r.phone].filter(Boolean).join(" · "), r.message);
+        if (!r.read) { c.className += " unread"; c.firstChild.firstChild.appendChild(node("span", "adm-badge", "Nuevo")); }
+        if (r.details && typeof r.details === "object") { var dl = Object.keys(r.details).map(function (k) { return k + ": " + r.details[k]; }).join("\n"); if (dl) c._main.insertBefore(node("p", null, dl), c._main.querySelector("p")); }
+        acts(c, [
+          abtn(r.read ? "Marcar como no leído" : "Marcar como leído", function () { rpc("admin_contact_action", { p_id: r.id, p_action: r.read ? "noleido" : "leido" }).then(admMessages).catch(fail); }, true),
+          abtn("Borrar", function () { rpc("admin_contact_action", { p_id: r.id, p_action: "borrar" }).then(admMessages).catch(fail); }, true, true)
+        ]);
+        body.appendChild(c);
+      });
+    }).catch(fail);
+  }
+
+  function field(label, el) { var f = node("div", "field"); var l = node("label", null, label); el.id = el.id || ("a" + Math.random().toString(36).slice(2, 8)); l.htmlFor = el.id; f.appendChild(l); f.appendChild(el); return f; }
+  function inp(type, ph, max) { var i = node("input"); i.type = type; if (ph) i.placeholder = ph; if (max) i.maxLength = max; return i; }
+  function del(table, id, reload) { return abtn("Borrar", function () { api("DELETE", table + "?id=eq." + encodeURIComponent(id)).then(function (r) { if (!r.ok) throw new Error("x"); reload(); }).catch(fail); }, true, true); }
+  function admContent() {
+    var body = aBody(); aSay("");
+    // Eventos
+    var eb = node("div", "adm-box"); eb.appendChild(node("h3", null, "Eventos"));
+    var t = inp("text", "Título", 100), city = inp("text", "Ciudad", 40), place = inp("text", "Lugar", 100), date = inp("date"), time = inp("time"), desc = node("textarea"); desc.maxLength = 400;
+    var kind = node("select"); [["evento", "Evento"], ["quedada", "Quedada"], ["concentracion", "Concentración"], ["ruta", "Ruta"]].forEach(function (k) { var o = node("option", null, k[1]); o.value = k[0]; kind.appendChild(o); });
+    [["Título", t], ["Tipo", kind], ["Ciudad", city], ["Lugar", place], ["Fecha", date], ["Hora (opcional)", time], ["Descripción (opcional)", desc]].forEach(function (x) { eb.appendChild(field(x[0], x[1])); });
+    eb.appendChild(abtn("Publicar evento", function () {
+      if (!t.value.trim() || !date.value) return aSay("Pon al menos título y fecha.", true);
+      var iso = new Date(date.value + "T" + (time.value || "12:00") + ":00").toISOString();
+      api("POST", "club_events", { title: t.value.trim(), kind: kind.value, city: city.value.trim() || null, place: place.value.trim() || null, description: desc.value.trim() || null, starts_at: iso, published: true }, "return=minimal")
+        .then(function (r) { if (!r.ok) throw new Error("x"); aSay("Evento publicado."); admContent(); aSay("Evento publicado."); }).catch(fail);
+    }));
+    var el = node("div"); eb.appendChild(el); body.appendChild(eb);
+    api("GET", "club_events?select=id,title,city,starts_at&order=starts_at.desc&limit=30").then(function (r) { (Array.isArray(r.data) ? r.data : []).forEach(function (e) { var c = card(String(e.title), [e.city, when(e.starts_at)].filter(Boolean).join(" · ")); acts(c, [del("club_events", e.id, admContent)]); el.appendChild(c); }); });
+    // Avisos
+    var nb = node("div", "adm-box"); nb.appendChild(node("h3", null, "Avisos internos (solo miembros)"));
+    var nt = inp("text", "Título", 120), nbody = node("textarea"); nbody.maxLength = 2000;
+    nb.appendChild(field("Título", nt)); nb.appendChild(field("Texto", nbody));
+    nb.appendChild(abtn("Publicar aviso", function () {
+      if (!nt.value.trim()) return aSay("Pon un título.", true);
+      api("POST", "member_notices", { title: nt.value.trim(), body: nbody.value.trim() }, "return=minimal").then(function (r) { if (!r.ok) throw new Error("x"); admContent(); aSay("Aviso publicado."); }).catch(fail);
+    }));
+    var nl = node("div"); nb.appendChild(nl); body.appendChild(nb);
+    api("GET", "member_notices?select=id,title,created_at&order=created_at.desc&limit=30").then(function (r) { (Array.isArray(r.data) ? r.data : []).forEach(function (e) { var c = card(String(e.title), when(e.created_at)); acts(c, [del("member_notices", e.id, admContent)]); nl.appendChild(c); }); });
+    // Enlaces
+    var lb = node("div", "adm-box"); lb.appendChild(node("h3", null, "Enlaces privados (grupo de WhatsApp, Drive…)"));
+    var ll = inp("text", "Nombre del enlace (ej.: WhatsApp)", 60), lu = inp("url", "https://…");
+    lb.appendChild(field("Nombre", ll)); lb.appendChild(field("Dirección (https://…)", lu));
+    lb.appendChild(abtn("Añadir enlace", function () {
+      if (!ll.value.trim() || !/^https:\/\/[^\s<>"']+$/.test(lu.value.trim())) return aSay("Pon un nombre y una dirección que empiece por https://", true);
+      api("POST", "member_links", { label: ll.value.trim(), url: lu.value.trim() }, "return=minimal").then(function (r) { if (!r.ok) throw new Error("x"); admContent(); aSay("Enlace añadido."); }).catch(fail);
+    }));
+    var lk = node("div"); lb.appendChild(lk); body.appendChild(lb);
+    api("GET", "member_links?select=id,label,url&order=sort_order.asc,created_at.desc&limit=30").then(function (r) { (Array.isArray(r.data) ? r.data : []).forEach(function (e) { var c = card(String(e.label), String(e.url)); acts(c, [del("member_links", e.id, admContent)]); lk.appendChild(c); }); });
+  }
+  function checkAdmin(s) {
+    return api("GET", "user_roles?select=role&role=eq.admin&limit=1").then(function (r) {
+      isAdm = r.ok && Array.isArray(r.data) && r.data.length > 0;
+      document.getElementById("m-admin-btn").hidden = !isAdm;
+    }).catch(function () { isAdm = false; });
+  }
+
   function refresh() {
     if (recTok) { show("reset"); return; }
     ensureSession().then(function (s) {
@@ -1856,6 +2090,7 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
         show("in");
         showTab("resumen");
         renderPrivate(s);
+        checkAdmin(s);
       });
     }).catch(function () { show("out"); say("No se pudo conectar. Inténtalo de nuevo en un momento.", true); });
   }
@@ -1991,8 +2226,10 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
     document.getElementById("m-tab-resumen").hidden = tab !== "resumen";
     document.getElementById("m-tab-foro").hidden = tab !== "foro";
     document.getElementById("m-tab-wa").hidden = tab !== "wa";
+    document.getElementById("m-tab-admin").hidden = tab !== "admin";
     Array.prototype.forEach.call(document.querySelectorAll(".mtab"), function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-tab") === tab)); });
     if (tab === "foro") { if (fOpen) openTopic(fOpen); else loadTopics(); }
+    if (tab === "admin") admShow(admTab);
   }
   Array.prototype.forEach.call(document.querySelectorAll(".mtab"), function (b) { b.addEventListener("click", function () { showTab(b.getAttribute("data-tab")); }); });
   Array.prototype.forEach.call(document.querySelectorAll(".fcat"), function (b) {
@@ -2131,7 +2368,7 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
     "Proponer un evento": { name: "Tu nombre o alias", field: "", evt: true, msg: "Describe el evento que propones", pre: "" },
     "Consulta general": { name: "Tu nombre o alias", field: "", ph: "", msg: "Escribe tu consulta", pre: "" }
   };
-  var motivoSel = document.getElementById("motivo");
+  var motivoSel = document.getElementById("motivo"), tOpen = Date.now();
   function syncBye() {
     var bye = motivoSel.value.indexOf("Darme de baja") === 0;
     document.getElementById("baja-field").hidden = !bye;
@@ -2143,6 +2380,10 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
     var join = motivoSel.value === "Unirme al club" && !!(BACKEND && BACKEND.url && BACKEND.key);
     document.getElementById("acct").hidden = !join;
     document.getElementById("coche").required = join;
+    var plain = !join;
+    document.getElementById("reply-field").hidden = !plain;
+    document.getElementById("c-reply").required = plain && !bye;
+    document.getElementById("c-consent-wrap").hidden = !plain;
     var evt = !!cfg.evt;
     document.getElementById("evt-box").hidden = !evt;
     document.getElementById("ev-city").required = evt;
@@ -2167,13 +2408,14 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
     if (!join) {
       document.getElementById("ct-title").textContent = baja ? "Darme de baja" : CT_TXT.title;
       document.getElementById("ct-kicker").textContent = baja ? "Baja" : CT_TXT.kicker;
-      document.getElementById("ct-lead").innerHTML = baja ? "Lamentamos que te vayas. Las puertas del club siempre quedan abiertas. Rellena el formulario, copia el mensaje y envíalo por los canales del club, y borraremos tus datos sin preguntas." : CT_TXT.lead;
+      document.getElementById("ct-lead").innerHTML = baja ? "Lamentamos que te vayas. Las puertas del club siempre quedan abiertas. Rellena el formulario y borraremos tus datos sin preguntas." : CT_TXT.lead;
     }
     motivoSel.innerHTML = "";
     opts.forEach(function (t) { var o = document.createElement("option"); o.textContent = t; motivoSel.appendChild(o); });
     motivoSel.value = join ? "Unirme al club" : (baja ? "Darme de baja" : (PRE[id] || "Consulta general"));
     motivoSel.closest(".field").hidden = join || baja;
-    form.querySelector('button[type="submit"]').textContent = join ? "Enviar solicitud" : "Preparar mensaje";
+    form.querySelector('button[type="submit"]').textContent = join ? "Enviar solicitud" : "Enviar mensaje";
+    tOpen = Date.now();
     out.hidden = true; document.getElementById("j-status").textContent = "";
     syncBye();
   }
@@ -2183,6 +2425,33 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
   Array.prototype.forEach.call(document.querySelectorAll(".pwj"), function (b) { b.addEventListener("click", function () { var i = document.getElementById(b.getAttribute("data-for")); var h = i.type === "password"; i.type = h ? "text" : "password"; b.textContent = h ? "Ocultar" : "Ver"; b.setAttribute("aria-label", h ? "Ocultar la contraseña" : "Mostrar la contraseña"); }); });
   (function () { var p = document.getElementById("j-pass"), m = document.getElementById("j-meter"); p.addEventListener("input", function () { var v = p.value, n = 0; if (!v) { m.textContent = ""; m.className = "meter"; return; } if (v.length >= 8) n++; if (v.length >= 12) n++; if (/[a-z]/.test(v) && /[A-Z]/.test(v) && /\d/.test(v) || /[^A-Za-z0-9]/.test(v) && v.length >= 10) n++; n = Math.max(1, Math.min(3, n)); m.className = "meter m" + n; m.textContent = "Seguridad: " + ["", "baja", "media", "alta"][n]; }); })();
 
+  function sendContact() {
+    var d = new FormData(form), motivo = String(d.get("motivo"));
+    var bye = motivo.indexOf("Darme de baja") === 0;
+    if (!document.getElementById("c-consent").checked) return say2("Para enviar el mensaje tienes que aceptar el tratamiento de tus datos (Política de privacidad).", true);
+    if (!BACKEND.url || !BACKEND.key) return say2("El envío de mensajes aún no está activo.", true);
+    var reply = String(d.get("reply") || "").trim();
+    var details = {};
+    var coche = String(d.get("coche") || "").trim();
+    if (coche && !document.getElementById("coche-field").hidden) details[(MOTIVOS[motivo] || {}).pre || "Dato"] = coche;
+    if (bye) { var why = String(d.get("baja") || "").trim(); if (why) details["Motivo"] = why; }
+    if (motivo === "Proponer un evento") {
+      ["ev_city:Ciudad", "ev_place:Lugar", "ev_date:Fecha", "ev_time:Hora"].forEach(function (x) { var k = x.split(":"), v = String(d.get(k[0]) || "").trim(); if (v) details[k[1]] = v; });
+    }
+    var msg = String(d.get("mensaje") || "").trim() || (bye ? "Solicito que se borren mis datos." : "");
+    var isMail = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(reply);
+    var btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true; say2("Enviando…");
+    fetch(BACKEND.url + "/rest/v1/rpc/submit_contact_message", {
+      method: "POST", headers: { apikey: BACKEND.key, Authorization: "Bearer " + BACKEND.key, "Content-Type": "application/json" },
+      body: JSON.stringify({ p_motivo: motivo, p_name: String(d.get("nombre") || "").trim(), p_email: isMail ? reply : null, p_phone: isMail || !reply ? null : reply, p_details: details, p_message: msg, p_consent_version: "2026-11-12", p_hp: document.getElementById("c-hp").value, p_elapsed: Math.round((Date.now() - tOpen) / 1000) })
+    }).then(function (r) {
+      if (!r.ok) { say2(r.status === 429 ? "Demasiados mensajes ahora mismo. Inténtalo más tarde." : "No se pudo enviar. Revisa los datos e inténtalo de nuevo.", true); return; }
+      form.reset(); document.getElementById("c-consent").checked = false; tOpen = Date.now(); syncBye();
+      say2(bye ? "Recibido. Borraremos tus datos y no volveremos a escribirte." : "Mensaje enviado. Te responderemos lo antes posible.");
+    }).catch(function () { say2("No se pudo conectar. Inténtalo de nuevo.", true); })
+      .then(function () { btn.disabled = false; });
+  }
   function prepare() {
     var d = new FormData(form);
     var lines = [
@@ -2214,7 +2483,7 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
     e.preventDefault();
     if (!form.reportValidity()) return;
     var accountOn = !document.getElementById("acct").hidden;
-    if (!accountOn) { say2(""); prepare(); return; }
+    if (!accountOn) { sendContact(); return; }
     var name = String(new FormData(form).get("nombre")).trim();
     var email = document.getElementById("j-email").value.trim();
     var pass = document.getElementById("j-pass").value;
