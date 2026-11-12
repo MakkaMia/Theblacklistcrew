@@ -1348,9 +1348,9 @@ body{background:#050507}
     <div class="wrap">
       <div class="split">
         <div>
-          <p class="kicker">Contacto</p>
-          <h2>Escríbenos</h2>
-          <p class="lead" style="margin-top:20px">Patrocinios, colaboraciones entre clubs, propuestas de eventos o cualquier consulta. Rellena el formulario, copia el mensaje y envíalo por los canales del club, que encontrarás en <a href="#redes">Redes sociales</a>. Lo leemos nosotros, sin intermediarios.</p>
+          <p class="kicker" id="ct-kicker">Contacto</p>
+          <h2 id="ct-title">Escríbenos</h2>
+          <p class="lead" id="ct-lead" style="margin-top:20px">Patrocinios, colaboraciones entre clubs, propuestas de eventos o cualquier consulta. Rellena el formulario, copia el mensaje y envíalo por los canales del club, que encontrarás en <a href="#redes">Redes sociales</a>. Lo leemos nosotros, sin intermediarios.</p>
         </div>
         <div id="contact-slot"></div>
       </div>
@@ -2154,18 +2154,25 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
     document.getElementById("mensaje-label").textContent = bye ? "Algo que quieras contarnos (opcional)" : cfg.msg;
   }
   motivoSel.addEventListener("change", syncBye);
-  var CONTACT_OPTS = ["Patrocinar al club", "Colaborar con mi club", "Proponer un evento", "Darme de baja", "Consulta general"];
-  var PRE = { patrocinar: "Patrocinar al club", colaborar: "Colaborar con mi club", "proponer-evento": "Proponer un evento", baja: "Darme de baja", contacto: "Consulta general" };
+  var CONTACT_OPTS = ["Patrocinar al club", "Colaborar con mi club", "Proponer un evento", "Consulta general"];
+  var CT_TXT = { title: "Escríbenos", kicker: "Contacto", lead: document.getElementById("ct-lead") ? document.getElementById("ct-lead").innerHTML : "" };
+  var PRE = { patrocinar: "Patrocinar al club", colaborar: "Colaborar con mi club", "proponer-evento": "Proponer un evento", contacto: "Consulta general" };
   function setMode(page, id) {
     if (page !== "unirse" && page !== "contacto") return;
     var join = page === "unirse";
     var slot = document.getElementById(join ? "join-slot" : "contact-slot");
     if (slot && form.parentNode !== slot) slot.appendChild(form);
-    var opts = join ? ["Unirme al club"] : CONTACT_OPTS;
+    var baja = !join && id === "baja";
+    var opts = join ? ["Unirme al club"] : (baja ? ["Darme de baja"] : CONTACT_OPTS);
+    if (!join) {
+      document.getElementById("ct-title").textContent = baja ? "Darme de baja" : CT_TXT.title;
+      document.getElementById("ct-kicker").textContent = baja ? "Baja" : CT_TXT.kicker;
+      document.getElementById("ct-lead").innerHTML = baja ? "Lamentamos que te vayas. Las puertas del club siempre quedan abiertas. Rellena el formulario, copia el mensaje y envíalo por los canales del club, y borraremos tus datos sin preguntas." : CT_TXT.lead;
+    }
     motivoSel.innerHTML = "";
     opts.forEach(function (t) { var o = document.createElement("option"); o.textContent = t; motivoSel.appendChild(o); });
-    motivoSel.value = join ? "Unirme al club" : (PRE[id] || "Consulta general");
-    motivoSel.closest(".field").hidden = join;
+    motivoSel.value = join ? "Unirme al club" : (baja ? "Darme de baja" : (PRE[id] || "Consulta general"));
+    motivoSel.closest(".field").hidden = join || baja;
     form.querySelector('button[type="submit"]').textContent = join ? "Enviar solicitud" : "Preparar mensaje";
     out.hidden = true; document.getElementById("j-status").textContent = "";
     syncBye();
