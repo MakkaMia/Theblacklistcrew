@@ -339,6 +339,11 @@ section { padding-block: 84px; }
 .member a:hover { text-decoration: underline; }
 .cta { margin-top: 24px; }
 #m-login, #m-resetf { max-width: 520px; width: 100%; }
+.m-danger { margin-top: 48px; padding-top: 22px; border-top: 1px solid #1e1b2e; }
+.m-danger .linklike { color: var(--mute); font-size: .9rem; }
+#d-box { max-width: 520px; margin-top: 16px; display: grid; gap: 16px; }
+#d-box[hidden] { display: none; }
+#d-box .row { display: flex; gap: 12px; flex-wrap: wrap; }
 .wa-box { max-width: 520px; display: grid; gap: 16px; margin-top: 18px; }
 .wa-state { margin: 0; color: #d9d3ea; }
 .wa-state b { color: #fff; }
@@ -1133,7 +1138,7 @@ body{background:#050507}
         <h3>Conservación</h3>
         <p>Mientras mantengas tu participación en el club o hasta que retires tu consentimiento o pidas el borrado. Guardamos la fecha y la versión de esta política que aceptaste como prueba de tu consentimiento.</p>
         <h3>Tus derechos</h3>
-        <p>Puedes ejercer los derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad, y retirar tu consentimiento, escribiéndonos desde la página <a href="#unirse">Unirse</a>, con la opción «Despedirme del club». Si consideras que no tratamos bien tus datos, puedes reclamar ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer">aepd.es</a>).</p>
+        <p>Puedes ejercer los derechos de acceso, rectificación, supresión, oposición, limitación y portabilidad, y retirar tu consentimiento, escribiéndonos desde la página <a href="#unirse">Unirse</a>, con la opción «Darme de baja», o directamente con el botón «Darme de baja» de la zona de miembros, que borra tu cuenta y tus datos al instante. Si consideras que no tratamos bien tus datos, puedes reclamar ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener noreferrer">aepd.es</a>).</p>
         <h3>Menores</h3>
         <p>El formulario y la zona de miembros son solo para mayores de edad. Si detectamos datos de un menor, los borraremos.</p>
       </div>
@@ -1239,7 +1244,7 @@ body{background:#050507}
           <div class="farewell">
             <h3>Hasta pronto</h3>
             <p>Las puertas del club siempre quedan abiertas. Si quieres despedirte y que borremos tus datos, lo hacemos sin preguntas.</p>
-            <button type="button" class="linklike" id="bye">Despedirme del club</button>
+            <button type="button" class="linklike" id="bye">Darme de baja</button>
           </div>
         </div>
         <form class="form" id="contact" novalidate>
@@ -1250,7 +1255,7 @@ body{background:#050507}
               <option>Patrocinar al club</option>
               <option>Colaborar con mi club</option>
               <option>Proponer un evento</option>
-              <option>Despedirme del club (baja y borrado de datos)</option>
+              <option>Darme de baja</option>
               <option>Otra cosa</option>
             </select>
           </div>
@@ -1440,6 +1445,21 @@ body{background:#050507}
         </div>
       </div>
 
+      <div class="m-danger" id="m-danger" hidden>
+        <button type="button" class="linklike" id="d-open">Darme de baja</button>
+        <div class="form" id="d-box" hidden>
+          <h3>Darme de baja</h3>
+          <p class="fine">Se borrarán para siempre tu cuenta, tu número de WhatsApp, tus mensajes del foro y tus fotos enviadas. <b>No se puede deshacer.</b> Si quieres volver, tendrás que registrarte de nuevo. Recuerda que también debes salir del grupo de WhatsApp.</p>
+          <div class="field">
+            <label for="d-word">Escribe BAJA para confirmar</label>
+            <input id="d-word" type="text" autocomplete="off" autocapitalize="characters">
+          </div>
+          <div class="row">
+            <button class="btn" type="button" id="d-go">Borrar mi cuenta</button>
+            <button class="btn ghost" type="button" id="d-cancel">Cancelar</button>
+          </div>
+        </div>
+      </div>
       <p class="u-status" id="m-status" role="status"></p>
     </div>
   </section>
@@ -1730,7 +1750,7 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
   if (!BACKEND.url || !BACKEND.key) { statusEl.textContent = "La zona de miembros aún no está activa."; return; }
 
   function say(msg, bad) { statusEl.textContent = msg || ""; statusEl.className = "u-status" + (bad ? " bad" : ""); }
-  function show(which) { Object.keys(views).forEach(function (k) { views[k].hidden = k !== which; }); }
+  function show(which) { Object.keys(views).forEach(function (k) { views[k].hidden = k !== which; }); var dg = document.getElementById("m-danger"); dg.hidden = !(which === "in" || which === "pending"); if (dg.hidden) document.getElementById("d-box").hidden = true; }
   function load() { try { return JSON.parse(sessionStorage.getItem(KEY) || localStorage.getItem(KEY)); } catch (e) { return null; } }
   function save(s, remember) { try { var rem = remember === undefined ? !sessionStorage.getItem(KEY) : remember; localStorage.removeItem(KEY); sessionStorage.removeItem(KEY); if (s) (rem ? localStorage : sessionStorage).setItem(KEY, JSON.stringify(s)); } catch (e) {} }
   var recTok = null;
@@ -1859,6 +1879,21 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
         show("out"); say("Contraseña cambiada. Ya puedes entrar con la nueva.");
       })
       .catch(function () { say("No se pudo conectar. Inténtalo de nuevo.", true); })
+      .then(function () { btn.disabled = false; });
+  });
+
+  document.getElementById("d-open").addEventListener("click", function () { var b = document.getElementById("d-box"); b.hidden = !b.hidden; document.getElementById("d-word").value = ""; });
+  document.getElementById("d-cancel").addEventListener("click", function () { document.getElementById("d-box").hidden = true; say(""); });
+  document.getElementById("d-go").addEventListener("click", function () {
+    if (document.getElementById("d-word").value.trim().toUpperCase() !== "BAJA") return say("Escribe BAJA para confirmar.", true);
+    var btn = document.getElementById("d-go"); btn.disabled = true; say("Borrando tu cuenta…");
+    ensureSession().then(function (s) {
+      if (!s) throw new Error("auth");
+      return fetch(BACKEND.url + "/rest/v1/rpc/delete_my_account", { method: "POST", headers: authHeaders(s.access_token), body: "{}" });
+    }).then(function (r) {
+      if (!r.ok) { say("No se pudo completar la baja. Escríbenos desde Unirse con la opción «Darme de baja».", true); return; }
+      save(null); show("out"); say("Tu cuenta y tus datos se han borrado. Gracias por haber formado parte de la crew.");
+    }).catch(function () { say("No se pudo conectar. Inténtalo de nuevo.", true); })
       .then(function () { btn.disabled = false; });
   });
 
@@ -2055,17 +2090,28 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
   var result = document.getElementById("result");
   var status = document.getElementById("status");
 
+  var MOTIVOS = {
+    "Unirme al club": { name: "Nombre o alias", field: "Tu coche (si tienes)", ph: "Marca, modelo y año", msg: "Mensaje", pre: "Coche" },
+    "Patrocinar al club": { name: "Nombre de la persona o empresa", field: "Web o Instagram de tu empresa", ph: "https://... o @tuempresa", msg: "Cuéntanos qué quieres aportar al club", pre: "Web/Instagram" },
+    "Colaborar con mi club": { name: "Tu nombre", field: "Nombre y ciudad de tu club", ph: "Ej.: Nombre del club · Valencia", msg: "Cuéntanos cómo te gustaría colaborar", pre: "Club" },
+    "Proponer un evento": { name: "Tu nombre o alias", field: "Ciudad y fecha propuestas", ph: "Ej.: Madrid · sábado 12 de diciembre", msg: "Describe el evento que propones", pre: "Ciudad y fecha" },
+    "Otra cosa": { name: "Tu nombre o alias", field: "", ph: "", msg: "Mensaje", pre: "" }
+  };
   var motivoSel = document.getElementById("motivo");
   function syncBye() {
-    var bye = motivoSel.value.indexOf("Despedirme") === 0;
+    var bye = motivoSel.value.indexOf("Darme de baja") === 0;
     document.getElementById("baja-field").hidden = !bye;
-    document.getElementById("coche-field").hidden = bye;
+    var cfg = MOTIVOS[motivoSel.value] || MOTIVOS["Unirme al club"];
+    var cf = document.getElementById("coche-field");
+    cf.hidden = bye || !cfg.field;
+    if (cfg.field) { cf.querySelector("label").textContent = cfg.field; var ci = document.getElementById("coche"); ci.placeholder = cfg.ph; }
+    document.querySelector('label[for="nombre"]').textContent = cfg.name;
     var join = motivoSel.value === "Unirme al club" && !!(BACKEND && BACKEND.url && BACKEND.key);
     document.getElementById("acct").hidden = !join;
     ["j-email", "j-wa", "j-pass", "j-pass2"].forEach(function (id) { document.getElementById(id).required = join; });
     var msg = document.getElementById("mensaje");
     msg.required = !bye;
-    document.getElementById("mensaje-label").textContent = bye ? "Algo que quieras contarnos (opcional)" : "Mensaje";
+    document.getElementById("mensaje-label").textContent = bye ? "Algo que quieras contarnos (opcional)" : cfg.msg;
   }
   motivoSel.addEventListener("change", syncBye);
   syncBye();
@@ -2081,12 +2127,12 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
       "Nombre: " + String(d.get("nombre")).trim()
     ];
     var coche = String(d.get("coche")).trim();
-    var isBye = String(d.get("motivo")).indexOf("Despedirme") === 0;
+    var isBye = String(d.get("motivo")).indexOf("Darme de baja") === 0;
     if (isBye) {
       lines.push("Pido que se borren mis datos (foto, nombre, Instagram y móvil).");
       var why = String(d.get("baja") || "").trim();
       if (why) lines.push("Motivo: " + why);
-    } else if (coche) lines.push("Coche: " + coche);
+    } else if (coche && !document.getElementById("coche-field").hidden) lines.push(((MOTIVOS[String(d.get("motivo"))] || {}).pre || "Dato") + ": " + coche);
     var waMsg = document.getElementById("acct").hidden ? "" : document.getElementById("j-wa").value.trim();
     if (waMsg) lines.push("WhatsApp: " + waMsg);
     lines.push("", String(d.get("mensaje")).trim());
@@ -2190,7 +2236,7 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
   if (!bye || !sel) return;
   bye.addEventListener("click", function () {
     for (var i = 0; i < sel.options.length; i++) {
-      if (sel.options[i].text.indexOf("Despedirme") === 0) { sel.selectedIndex = i; sel.dispatchEvent(new Event("change")); break; }
+      if (sel.options[i].text.indexOf("Darme de baja") === 0) { sel.selectedIndex = i; sel.dispatchEvent(new Event("change")); break; }
     }
     var f = document.getElementById("contact");
     if (f && f.scrollIntoView) f.scrollIntoView({ block: "center" });
