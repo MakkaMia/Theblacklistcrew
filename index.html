@@ -338,6 +338,19 @@ section { padding-block: 84px; }
 .member a { font: 500 .8rem/1.3 var(--f-mono); color: var(--violet-hi); text-decoration: none; word-break: break-all; }
 .member a:hover { text-decoration: underline; }
 .cta { margin-top: 24px; }
+#m-login, #m-resetf { max-width: 520px; width: 100%; }
+.acct { display: grid; gap: 18px; }
+.acct[hidden] { display: none; }
+.pw { position: relative; }
+.pw input { padding-right: 78px; width: 100%; }
+.pw .pwt, .pw .pwj { position: absolute; right: 8px; top: 50%; transform: translateY(-50%); background: none; border: 0; color: var(--violet-hi); font: 600 .72rem/1 var(--f-mono); letter-spacing: .12em; text-transform: uppercase; cursor: pointer; padding: 10px 8px; }
+.pw .pwt:hover, .pw .pwj:hover { color: #fff; }
+.form-row { display: flex; justify-content: space-between; align-items: center; gap: 10px 18px; flex-wrap: wrap; }
+.checks { display: grid; gap: 14px; margin: 4px 0 6px; }
+.fine { font: 400 .85rem/1.5 var(--f-body); color: var(--mute); margin: 0; }
+.fine a { color: var(--violet-hi); }
+.meter { font: 500 .74rem/1 var(--f-mono); letter-spacing: .1em; text-transform: uppercase; color: var(--mute); min-height: 1em; }
+.meter.m1 { color: #ff9a9a; } .meter.m2 { color: #e8c76a; } .meter.m3 { color: #7ddc9a; }
 .check { display: flex; gap: 12px; align-items: flex-start; font: 400 .95rem/1.5 var(--f-body); text-transform: none; letter-spacing: 0; color: var(--mute); }
 .check input { width: auto; margin-top: 4px; flex: none; accent-color: var(--violet); }
 input[type="file"] { padding: 10px; }
@@ -591,7 +604,7 @@ footer::before { content: ""; position: absolute; left: 0; right: 0; top: 0; hei
 .signup.off,body.splash .signup{display:none}
 /* pie */
 footer{background:#050507;border-top:1px solid #1e1b2e;padding:64px 0 28px}
-.ft-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px;margin-bottom:44px}
+.ft-grid{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:36px;margin-bottom:44px}
 .ft-join img{height:64px;width:auto;margin-bottom:18px}
 .ft-t{font:900 clamp(30px,4vw,52px)/1 var(--f-display);text-transform:uppercase;color:var(--v2);margin:0 0 10px}
 .ft-join p{color:#b9b4cf;margin:0 0 18px}
@@ -599,6 +612,7 @@ footer{background:#050507;border-top:1px solid #1e1b2e;padding:64px 0 28px}
 .ft-col a{display:block;color:#e9e7f3;text-decoration:none;padding:6px 0;font-size:15px}
 .ft-col a:hover{color:var(--v2)}
 footer small{color:#8d88a6}
+footer small a{color:#b9b4cf;text-decoration:none}footer small a:hover{color:var(--v2)}
 @media (max-width:1320px){
  .top .wrap.hdr{justify-content:space-between;min-height:64px;padding:0 18px}
  .brand-m{display:block}.brand-m img{height:40px;width:auto;display:block}
@@ -1122,6 +1136,92 @@ body{background:#050507}
     </div>
   </section>
 
+  <section id="aviso-legal" data-page="aviso-legal" class="tight">
+    <div class="wrap">
+      <p class="kicker">Legal</p>
+      <h2>Aviso legal</h2>
+      <div class="policy">
+        <p class="updated">Versión 2026-11-12</p>
+        <h3>Titular de la web</h3>
+        <p>Esta web es el espacio oficial de <b>The Black List Crew</b>, club de coches con actividad en Valencia, Barcelona y Madrid. Puedes contactar con el club en cualquier momento desde la página <a href="#unirse">Unirse</a>.</p>
+        <h3>Objeto</h3>
+        <p>Dar a conocer el club, sus eventos, su galería y sus miembros, y ofrecer a los miembros una zona privada con avisos, enlaces y foro. No es una tienda: la web no vende productos ni servicios.</p>
+        <h3>Condiciones de uso</h3>
+        <p>El acceso y uso de la web son gratuitos y atribuyen la condición de usuario. El usuario se compromete a usarla conforme a la ley, a la buena fe y a los <a href="#terminos">Términos de uso</a>, y a no dañar ni sobrecargar la web ni intentar acceder a zonas privadas sin permiso.</p>
+        <h3>Propiedad intelectual</h3>
+        <p>El nombre, el logotipo, el diseño y los textos de The Black List Crew pertenecen al club. No se pueden copiar ni reutilizar sin permiso. Las fotos y vídeos de miembros pertenecen a sus autores y se publican con su autorización. Si crees que algún contenido vulnera tus derechos, escríbenos desde <a href="#unirse">Unirse</a> y lo retiraremos.</p>
+        <h3>Enlaces externos</h3>
+        <p>La web puede enlazar a redes sociales y sitios de terceros. El club no controla esos sitios ni se responsabiliza de su contenido o sus políticas.</p>
+        <h3>Responsabilidad</h3>
+        <p>Hacemos lo posible por que la información sea correcta y esté actualizada, pero puede contener errores y el club puede cambiarla sin aviso. El club no responde de los daños que puedan derivarse de un uso indebido de la web ni de las operaciones entre particulares en el Mercado.</p>
+        <h3>Protección de datos y cookies</h3>
+        <p>Consulta la <a href="#privacidad">Política de privacidad</a> y la <a href="#cookies">Política de cookies</a>.</p>
+        <h3>Legislación aplicable</h3>
+        <p>Este aviso se rige por la ley española. Para cualquier conflicto serán competentes los juzgados y tribunales que correspondan conforme a la normativa vigente.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="terminos" data-page="terminos" class="tight">
+    <div class="wrap">
+      <p class="kicker">Legal</p>
+      <h2>Términos de uso</h2>
+      <div class="policy">
+        <p class="updated">Versión 2026-11-12</p>
+        <h3>Qué regulan estos términos</h3>
+        <p>Las condiciones para usar la web de The Black List Crew y su zona de miembros. Al crear una cuenta o enviar cualquier formulario confirmas que las has leído y las aceptas, junto con la <a href="#normas">Normativa del club</a> y la <a href="#privacidad">Política de privacidad</a>.</p>
+        <h3>Tu cuenta de miembro</h3>
+        <ul>
+          <li>Hay que ser <b>mayor de edad</b> para crear una cuenta.</li>
+          <li>Los datos que das deben ser ciertos. La cuenta es personal: no compartas tu contraseña ni la cedas a otra persona.</li>
+          <li>El club revisa y aprueba las cuentas nuevas, y puede rechazar o dar de baja una cuenta que incumpla estas condiciones.</li>
+          <li>Puedes darte de baja cuando quieras desde <a href="#unirse">Unirse</a>. Tus mensajes del foro se eliminan con tu cuenta.</li>
+        </ul>
+        <h3>Cómo comportarte</h3>
+        <ul>
+          <li>Respeto hacia el resto de miembros, el staff y los clubs. No se permiten insultos, acoso, discriminación ni amenazas.</li>
+          <li>Nada de contenido ilegal, engañoso o que infrinja derechos de terceros, ni spam ni publicidad no autorizada.</li>
+          <li>No publiques datos personales de otras personas sin su permiso.</li>
+          <li>La conducción temeraria y las carreras ilegales no tienen cabida en el club ni en sus canales. Se aplica la Normativa del club.</li>
+        </ul>
+        <h3>Contenido que publicas</h3>
+        <p>Sigues siendo el autor o titular de tus fotos y mensajes. Al publicarlos nos autorizas a mostrarlos en la web y los canales del club para los fines que indicaste, y declaras que tienes derecho a hacerlo. Puedes pedir su retirada en cualquier momento.</p>
+        <h3>Moderación</h3>
+        <p>El club puede ocultar o borrar contenido y suspender cuentas que incumplan estas condiciones o la Normativa, sin aviso previo cuando sea necesario para proteger a la comunidad.</p>
+        <h3>Mercado del club</h3>
+        <p>The Black List Crew solo facilita el espacio de anuncios y no interviene en las operaciones entre particulares ni se responsabiliza de ellas. Comprueba siempre el artículo y a la persona antes de comprar o vender.</p>
+        <h3>Eventos y rutas</h3>
+        <p>Cada participante conduce bajo su propia responsabilidad y debe cumplir las normas de tráfico y las indicaciones del staff. Las quedadas y rutas del club no son competiciones.</p>
+        <h3>Disponibilidad y responsabilidad</h3>
+        <p>Hacemos lo posible por que la web funcione de forma continua, pero no podemos garantizarlo. El club no responde de interrupciones, errores ni del uso que otras personas hagan de lo que publiques.</p>
+        <h3>Cambios</h3>
+        <p>Podemos actualizar estos términos. La versión vigente y su fecha aparecen siempre en esta página. Estos términos se rigen por la ley española.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="cookies" data-page="cookies" class="tight">
+    <div class="wrap">
+      <p class="kicker">Legal</p>
+      <h2>Política de cookies</h2>
+      <div class="policy">
+        <p class="updated">Versión 2026-11-12</p>
+        <h3>Resumen</h3>
+        <p>Esta web <b>no usa cookies de publicidad, de analítica ni de seguimiento</b>. Solo guarda en tu navegador unos pocos datos técnicos necesarios para que funcione lo que tú pides, por lo que no hace falta pedirte consentimiento.</p>
+        <h3>Qué se guarda en tu dispositivo</h3>
+        <ul>
+          <li><b>blc-session</b>: tu sesión de miembro, solo si entras. Si marcas «Recordarme en este dispositivo» se guarda hasta que salgas; si no, solo mientras tengas la pestaña abierta.</li>
+          <li><b>blc-intro</b>: recuerda que ya has visto el vídeo de entrada durante esta visita.</li>
+          <li><b>blc-su</b>: recuerda que has cerrado el aviso para unirte durante esta visita.</li>
+        </ul>
+        <h3>Terceros</h3>
+        <p>El alojamiento de la web (GitHub Pages) y la base de datos (Supabase) pueden registrar tu dirección IP en sus servidores para poder servir la web. Más información en la <a href="#privacidad">Política de privacidad</a>.</p>
+        <h3>Cómo borrarlo</h3>
+        <p>Pulsa «Salir» en la zona de miembros, o borra los datos del sitio desde los ajustes de tu navegador.</p>
+      </div>
+    </div>
+  </section>
+
   <section id="unirse" data-page="unirse" class="join-sec" style="padding-top:0">
     <div class="wrap">
       <div class="split">
@@ -1165,6 +1265,26 @@ body{background:#050507}
               <option>Otro motivo</option>
             </select>
           </div>
+          <div id="acct" class="acct">
+            <p class="fine">Crea tu acceso a la <b>zona de miembros</b>. Cuando el club apruebe tu solicitud, podrás entrar con tu correo y tu contraseña.</p>
+            <div class="field">
+              <label for="j-email">Correo (para entrar)</label>
+              <input id="j-email" name="correo" type="email" autocomplete="email">
+            </div>
+            <div class="field">
+              <label for="j-pass">Contraseña (mínimo 8 caracteres)</label>
+              <div class="pw"><input id="j-pass" type="password" autocomplete="new-password" minlength="8"><button type="button" class="pwj" data-for="j-pass" aria-label="Mostrar la contraseña">Ver</button></div>
+              <span class="meter" id="j-meter" aria-live="polite"></span>
+            </div>
+            <div class="field">
+              <label for="j-pass2">Repite la contraseña</label>
+              <div class="pw"><input id="j-pass2" type="password" autocomplete="new-password" minlength="8"><button type="button" class="pwj" data-for="j-pass2" aria-label="Mostrar la contraseña">Ver</button></div>
+            </div>
+            <div class="checks">
+              <label class="check" for="j-terms"><input id="j-terms" type="checkbox"><span>He leído y acepto la <a href="#normas" target="_blank" rel="noopener">Normativa del club</a>, los <a href="#terminos" target="_blank" rel="noopener">Términos de uso</a> y la <a href="#privacidad" target="_blank" rel="noopener">Política de privacidad</a>.</span></label>
+              <label class="check" for="j-adult"><input id="j-adult" type="checkbox"><span>Confirmo que soy <b>mayor de edad</b> (18 años o más).</span></label>
+            </div>
+          </div>
           <div class="field" id="coche-field">
             <label for="coche">Tu coche (si tienes)</label>
             <input id="coche" name="coche" type="text" placeholder="Marca, modelo y año">
@@ -1174,6 +1294,7 @@ body{background:#050507}
             <textarea id="mensaje" name="mensaje" required></textarea>
           </div>
           <button class="btn" type="submit">Preparar mensaje</button>
+          <p class="u-status" id="j-status" role="status"></p>
           <div class="out" id="out" hidden>
             <p>Copia este texto y envíalo por los canales del club.</p>
             <textarea id="result" readonly aria-label="Mensaje preparado"></textarea>
@@ -1192,7 +1313,7 @@ body{background:#050507}
       <h2>Zona de miembros</h2>
 
       <div id="m-out" hidden>
-        <p class="section-lead">Entra con tu cuenta para ver los avisos, los enlaces internos y el foro del club. Las cuentas nuevas las aprueba el club antes de dar acceso.</p>
+        <p class="section-lead">Entra con tu cuenta para ver los avisos, los enlaces internos y el foro del club. Las cuentas las crea y aprueba el club.</p>
         <div class="m-grid">
           <form class="form" id="m-login" novalidate>
             <h3>Entrar</h3>
@@ -1202,25 +1323,32 @@ body{background:#050507}
             </div>
             <div class="field">
               <label for="l-pass">Contraseña</label>
-              <input id="l-pass" type="password" autocomplete="current-password" required>
+              <div class="pw"><input id="l-pass" type="password" autocomplete="current-password" required><button type="button" class="pwt" data-for="l-pass" aria-label="Mostrar la contraseña">Ver</button></div>
             </div>
-            <button class="btn" type="submit" id="l-send">Entrar</button>
+            <div class="form-row">
+              <label class="check" for="l-remember"><input id="l-remember" type="checkbox" checked><span>Recordarme en este dispositivo</span></label>
+              <button type="button" class="linklike" id="l-forgot">¿Has olvidado tu contraseña?</button>
+            </div>
+            <button class="btn" type="submit" id="ml-send">Entrar</button>
+            <p class="fine">Al entrar aceptas la <a href="#normas" target="_blank" rel="noopener">Normativa del club</a> y los <a href="#terminos" target="_blank" rel="noopener">Términos de uso</a>.</p>
           </form>
-          <form class="form" id="m-signup" novalidate>
-            <h3>Crear cuenta</h3>
+        </div>
+      </div>
+
+      <div id="m-reset" hidden>
+        <p class="section-lead">Escribe tu nueva contraseña.</p>
+        <div class="m-grid">
+          <form class="form" id="m-resetf" novalidate>
+            <h3>Nueva contraseña</h3>
             <div class="field">
-              <label for="s-name">Tu nombre</label>
-              <input id="s-name" type="text" maxlength="40" autocomplete="name" required>
+              <label for="r-pass">Nueva contraseña (mínimo 8 caracteres)</label>
+              <div class="pw"><input id="r-pass" type="password" autocomplete="new-password" minlength="8" required><button type="button" class="pwt" data-for="r-pass" aria-label="Mostrar la contraseña">Ver</button></div>
             </div>
             <div class="field">
-              <label for="s-email">Correo</label>
-              <input id="s-email" type="email" autocomplete="email" required>
+              <label for="r-pass2">Repite la contraseña</label>
+              <div class="pw"><input id="r-pass2" type="password" autocomplete="new-password" minlength="8" required><button type="button" class="pwt" data-for="r-pass2" aria-label="Mostrar la contraseña">Ver</button></div>
             </div>
-            <div class="field">
-              <label for="s-pass">Contraseña (mínimo 8 caracteres)</label>
-              <input id="s-pass" type="password" autocomplete="new-password" minlength="8" required>
-            </div>
-            <button class="btn" type="submit" id="s-send">Crear cuenta</button>
+            <button class="btn" type="submit" id="r-send">Guardar contraseña</button>
           </form>
         </div>
       </div>
@@ -1300,9 +1428,10 @@ body{background:#050507}
       </div>
       <div class="ft-col"><h4>Explora</h4><a href="#eventos">Eventos</a><a href="#galeria">Galería</a><a href="#mercado">Mercado</a><a href="#clubs">Clubs</a><a href="#miembros">Miembros</a></div>
       <div class="ft-col"><h4>El club</h4><a href="#staff">Staff</a><a href="#patrocinios">Patrocinios</a><a href="#normas">Normativa</a><a href="#redes">Redes sociales</a></div>
-      <div class="ft-col"><h4>Legal</h4><a href="#privacidad">Privacidad</a></div>
+      <div class="ft-col"><h4>Ayuda</h4><a href="#unirse">Unirse al club</a><a href="#unirse">Contacto</a><a href="#miembros">Zona de miembros</a><a href="#unirse">Darme de baja</a></div>
+      <div class="ft-col"><h4>Legal</h4><a href="#aviso-legal">Aviso legal</a><a href="#privacidad">Política de privacidad</a><a href="#cookies">Política de cookies</a><a href="#terminos">Términos de uso</a><a href="#normas">Normativa del club</a></div>
     </div>
-    <small>© 2026 The Black List Crew. Club de coches.</small>
+    <small>© 2026 The Black List Crew. Club de coches. · <a href="#aviso-legal">Aviso legal</a> · <a href="#privacidad">Privacidad</a> · <a href="#cookies">Cookies</a> · <a href="#terminos">Términos</a></small>
   </div>
 </footer>
 
@@ -1568,14 +1697,17 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
   var root = document.getElementById("miembros");
   if (!root) return;
   var KEY = "blc-session";
-  var views = { out: document.getElementById("m-out"), pending: document.getElementById("m-pending"), "in": document.getElementById("m-in") };
+  var views = { out: document.getElementById("m-out"), reset: document.getElementById("m-reset"), pending: document.getElementById("m-pending"), "in": document.getElementById("m-in") };
   var statusEl = document.getElementById("m-status");
   if (!BACKEND.url || !BACKEND.key) { statusEl.textContent = "La zona de miembros aún no está activa."; return; }
 
   function say(msg, bad) { statusEl.textContent = msg || ""; statusEl.className = "u-status" + (bad ? " bad" : ""); }
   function show(which) { Object.keys(views).forEach(function (k) { views[k].hidden = k !== which; }); }
-  function load() { try { return JSON.parse(localStorage.getItem(KEY)); } catch (e) { return null; } }
-  function save(s) { try { if (s) localStorage.setItem(KEY, JSON.stringify(s)); else localStorage.removeItem(KEY); } catch (e) {} }
+  function load() { try { return JSON.parse(sessionStorage.getItem(KEY) || localStorage.getItem(KEY)); } catch (e) { return null; } }
+  function save(s, remember) { try { var rem = remember === undefined ? !sessionStorage.getItem(KEY) : remember; localStorage.removeItem(KEY); sessionStorage.removeItem(KEY); if (s) (rem ? localStorage : sessionStorage).setItem(KEY, JSON.stringify(s)); } catch (e) {} }
+  var recTok = null;
+  try { var hh = location.hash || ""; if (/type=recovery/.test(hh)) { recTok = new URLSearchParams(hh.replace(/^#/, "")).get("access_token"); history.replaceState(null, "", location.pathname + location.search + "#miembros"); } } catch (e) {}
+  Array.prototype.forEach.call(document.querySelectorAll(".pwt"), function (b) { b.addEventListener("click", function () { var i = document.getElementById(b.getAttribute("data-for")); var h = i.type === "password"; i.type = h ? "text" : "password"; b.textContent = h ? "Ocultar" : "Ver"; b.setAttribute("aria-label", h ? "Ocultar la contraseña" : "Mostrar la contraseña"); }); });
   function toSession(j) { return { access_token: j.access_token, refresh_token: j.refresh_token, expires_at: Date.now() + ((j.expires_in || 3600) - 30) * 1000 }; }
   function authHeaders(token) { return { apikey: BACKEND.key, Authorization: "Bearer " + (token || BACKEND.key), "Content-Type": "application/json" }; }
   function node(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text) e.textContent = text; return e; }
@@ -1630,6 +1762,7 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
   }
 
   function refresh() {
+    if (recTok) { show("reset"); return; }
     ensureSession().then(function (s) {
       if (!s) { show("out"); return; }
       return get("member_profiles?select=name,approved&limit=1", s).then(function (res) {
@@ -1661,42 +1794,44 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
     var email = document.getElementById("l-email").value.trim();
     var pass = document.getElementById("l-pass").value;
     if (!email || !pass) return say("Escribe tu correo y tu contraseña.", true);
-    var btn = document.getElementById("l-send");
+    var btn = document.getElementById("ml-send");
     btn.disabled = true; say("Entrando…");
     fetch(BACKEND.url + "/auth/v1/token?grant_type=password", {
       method: "POST", headers: authHeaders(), body: JSON.stringify({ email: email, password: pass })
     }).then(function (r) { return r.ok ? r.json() : null; })
       .then(function (j) {
         if (!j || !j.access_token) { say("Correo o contraseña incorrectos, o el correo aún no está confirmado.", true); return; }
-        save(toSession(j)); say(""); document.getElementById("l-pass").value = ""; refresh();
+        save(toSession(j), document.getElementById("l-remember").checked); say(""); document.getElementById("l-pass").value = ""; refresh();
       })
       .catch(function () { say("No se pudo conectar. Inténtalo de nuevo.", true); })
       .then(function () { btn.disabled = false; });
   });
 
-  document.getElementById("m-signup").addEventListener("submit", function (e) {
+
+
+  document.getElementById("l-forgot").addEventListener("click", function () {
+    var email = document.getElementById("l-email").value.trim();
+    if (!email) return say("Escribe tu correo en el campo de arriba y vuelve a pulsar «¿Has olvidado tu contraseña?».", true);
+    say("Enviando…");
+    fetch(BACKEND.url + "/auth/v1/recover", { method: "POST", headers: authHeaders(), body: JSON.stringify({ email: email }) })
+      .then(function () { say("Si ese correo tiene cuenta, te hemos enviado un enlace para crear una contraseña nueva. Revisa también la carpeta de spam."); })
+      .catch(function () { say("No se pudo conectar. Inténtalo de nuevo.", true); });
+  });
+  document.getElementById("m-resetf").addEventListener("submit", function (e) {
     e.preventDefault();
-    var name = document.getElementById("s-name").value.trim();
-    var email = document.getElementById("s-email").value.trim();
-    var pass = document.getElementById("s-pass").value;
-    if (!name || name.length > 40) return say("Escribe tu nombre, de 1 a 40 letras.", true);
-    if (!email) return say("Escribe tu correo.", true);
-    if (pass.length < 8) return say("La contraseña debe tener al menos 8 caracteres.", true);
-    var btn = document.getElementById("s-send");
-    btn.disabled = true; say("Creando tu cuenta…");
-    fetch(BACKEND.url + "/auth/v1/signup", {
-      method: "POST", headers: authHeaders(), body: JSON.stringify({ email: email, password: pass, data: { name: name } })
-    }).then(function (r) { return r.json().catch(function () { return null; }).then(function (j) { return { ok: r.ok, j: j }; }); })
-      .then(function (res) {
-        if (!res.ok) { say("No se pudo crear la cuenta. Revisa el correo y que la contraseña tenga al menos 8 caracteres.", true); return; }
-        document.getElementById("s-pass").value = "";
-        if (res.j && res.j.access_token) { save(toSession(res.j)); say(""); refresh(); }
-        else { say("Cuenta creada. Confirma tu correo si te lo pedimos y luego entra. El club aprobará tu acceso."); }
+    var p = document.getElementById("r-pass").value;
+    if (p.length < 8) return say("La contraseña debe tener al menos 8 caracteres.", true);
+    if (p !== document.getElementById("r-pass2").value) return say("Las dos contraseñas no coinciden.", true);
+    var btn = document.getElementById("r-send"); btn.disabled = true; say("Guardando…");
+    fetch(BACKEND.url + "/auth/v1/user", { method: "PUT", headers: authHeaders(recTok), body: JSON.stringify({ password: p }) })
+      .then(function (r) {
+        if (!r.ok) { say("El enlace ha caducado o no es válido. Pide uno nuevo desde «¿Has olvidado tu contraseña?».", true); return; }
+        recTok = null; document.getElementById("r-pass").value = ""; document.getElementById("r-pass2").value = "";
+        show("out"); say("Contraseña cambiada. Ya puedes entrar con la nueva.");
       })
       .catch(function () { say("No se pudo conectar. Inténtalo de nuevo.", true); })
       .then(function () { btn.disabled = false; });
   });
-
 
   // ---- Foro de miembros
   var FCATS = { averias: "Averías y diagnosis", mecanica: "Mecánica y mantenimiento", tuning: "Tuning y modificaciones", compras: "Compras y consejos", itv: "ITV y normativa", general: "General" };
@@ -1855,6 +1990,9 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
     var bye = motivoSel.value.indexOf("Despedirme") === 0;
     document.getElementById("baja-field").hidden = !bye;
     document.getElementById("coche-field").hidden = bye;
+    var join = motivoSel.value === "Unirme al club" && !!(BACKEND && BACKEND.url && BACKEND.key);
+    document.getElementById("acct").hidden = !join;
+    ["j-email", "j-pass", "j-pass2"].forEach(function (id) { document.getElementById(id).required = join; });
     var msg = document.getElementById("mensaje");
     msg.required = !bye;
     document.getElementById("mensaje-label").textContent = bye ? "Algo que quieras contarnos (opcional)" : "Mensaje";
@@ -1862,9 +2000,10 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
   motivoSel.addEventListener("change", syncBye);
   syncBye();
 
-  form.addEventListener("submit", function (e) {
-    e.preventDefault();
-    if (!form.reportValidity()) return;
+  Array.prototype.forEach.call(document.querySelectorAll(".pwj"), function (b) { b.addEventListener("click", function () { var i = document.getElementById(b.getAttribute("data-for")); var h = i.type === "password"; i.type = h ? "text" : "password"; b.textContent = h ? "Ocultar" : "Ver"; b.setAttribute("aria-label", h ? "Ocultar la contraseña" : "Mostrar la contraseña"); }); });
+  (function () { var p = document.getElementById("j-pass"), m = document.getElementById("j-meter"); p.addEventListener("input", function () { var v = p.value, n = 0; if (!v) { m.textContent = ""; m.className = "meter"; return; } if (v.length >= 8) n++; if (v.length >= 12) n++; if (/[a-z]/.test(v) && /[A-Z]/.test(v) && /\d/.test(v) || /[^A-Za-z0-9]/.test(v) && v.length >= 10) n++; n = Math.max(1, Math.min(3, n)); m.className = "meter m" + n; m.textContent = "Seguridad: " + ["", "baja", "media", "alta"][n]; }); })();
+
+  function prepare() {
     var d = new FormData(form);
     var lines = [
       "Hola, The Black List Crew.",
@@ -1881,10 +2020,39 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
     lines.push("", String(d.get("mensaje")).trim());
     result.value = lines.join("\n");
     out.hidden = false;
-    status.textContent = "";
     result.focus();
     result.select();
+  }
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    var accountOn = !document.getElementById("acct").hidden;
+    if (!accountOn) { say2(""); prepare(); return; }
+    var name = String(new FormData(form).get("nombre")).trim();
+    var email = document.getElementById("j-email").value.trim();
+    var pass = document.getElementById("j-pass").value;
+    if (name.length > 40) return say2("Tu nombre o alias puede tener como máximo 40 letras.", true);
+    if (pass.length < 8) return say2("La contraseña debe tener al menos 8 caracteres.", true);
+    if (pass !== document.getElementById("j-pass2").value) return say2("Las dos contraseñas no coinciden.", true);
+    if (!document.getElementById("j-terms").checked) return say2("Para enviar la solicitud tienes que aceptar la Normativa, los Términos de uso y la Política de privacidad.", true);
+    if (!document.getElementById("j-adult").checked) return say2("Tienes que confirmar que eres mayor de edad.", true);
+    var btn = form.querySelector('button[type="submit"]');
+    btn.disabled = true; say2("Enviando tu solicitud…");
+    fetch(BACKEND.url + "/auth/v1/signup", {
+      method: "POST",
+      headers: { apikey: BACKEND.key, Authorization: "Bearer " + BACKEND.key, "Content-Type": "application/json" },
+      body: JSON.stringify({ email: email, password: pass, data: { name: name, terms_version: "2026-11-12", terms_accepted_at: new Date().toISOString(), adult: true } })
+    }).then(function (r) { return { ok: r.ok }; })
+      .then(function (res) {
+        if (!res.ok) { say2("No se pudo crear tu acceso. Revisa el correo y que la contraseña tenga al menos 8 caracteres.", true); return; }
+        document.getElementById("j-pass").value = ""; document.getElementById("j-pass2").value = "";
+        say2("Solicitud enviada. Tu cuenta queda pendiente de aprobación: cuando el club la acepte, podrás entrar en Miembros con tu correo y tu contraseña. Si te pedimos confirmar el correo, revisa tu bandeja. Copia también el mensaje de abajo y envíalo por los canales del club.");
+        prepare();
+      })
+      .catch(function () { say2("No se pudo conectar. Inténtalo de nuevo.", true); })
+      .then(function () { btn.disabled = false; });
   });
+  function say2(m, bad) { var e = document.getElementById("j-status"); e.textContent = m || ""; e.className = "u-status" + (bad ? " bad" : ""); }
 
   document.getElementById("copy").addEventListener("click", function () {
     function fallback() { result.focus(); result.select(); status.textContent = "Selecciona y copia el texto."; }
@@ -1932,7 +2100,7 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
   // Navegación por clic sin depender del hash del navegador (también funciona en vistas previas incrustadas)
   document.addEventListener("click", function (e) {
     var a = e.target.closest ? e.target.closest('a[href^="#"]') : null;
-    if (!a || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey) return;
+    if (!a || a.target === "_blank" || e.defaultPrevented || e.metaKey || e.ctrlKey || e.shiftKey) return;
     var id = decodeURIComponent(a.getAttribute("href").slice(1));
     if (!id) return;
     e.preventDefault();
