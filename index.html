@@ -337,6 +337,7 @@ section { padding-block: 84px; }
 .member b { font: 700 1.2rem/1.1 var(--f-display); text-transform: uppercase; }
 .member a { font: 500 .8rem/1.3 var(--f-mono); color: var(--violet-hi); text-decoration: none; word-break: break-all; }
 .member a:hover { text-decoration: underline; }
+.member span { font: 500 .8rem/1.3 var(--f-mono); color: var(--violet-hi); }
 .cta { margin-top: 24px; }
 #m-login, #m-resetf { max-width: 520px; width: 100%; }
 
@@ -831,55 +832,12 @@ body{background:#050507}
         <div>
           <p class="kicker">Miembros</p>
           <h2>Sube tu coche</h2>
-          <p class="lead" style="margin-top:20px">Manda una foto de tu coche con tu nombre y tu Instagram. Revisamos cada foto antes de publicarla en la carpeta Miembros de la galería, dentro de la ciudad que elijas.</p>
+          <p class="lead" style="margin-top:20px">La carpeta Miembros es solo para miembros del club: cada miembro puede subir <b>una foto de su coche</b>, unida a su cuenta y a su WhatsApp. Revisamos cada foto antes de publicarla.</p>
         </div>
-        <form class="form" id="upload" novalidate>
-          <div class="field">
-            <label for="u-name">Tu nombre</label>
-            <input id="u-name" type="text" maxlength="40" autocomplete="name" required>
-          </div>
-          <div class="field">
-            <label for="u-ig">Tu Instagram</label>
-            <input id="u-ig" type="text" maxlength="31" placeholder="tuusuario" autocapitalize="none" autocorrect="off" spellcheck="false" required>
-          </div>
-          <div class="field">
-            <label for="u-phone">Tu móvil (privado)</label>
-            <input id="u-phone" type="tel" inputmode="tel" maxlength="20" placeholder="+34 600 000 000" autocomplete="tel" required>
-            <p class="lock"><svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M12 2a5 5 0 0 0-5 5v3H6a2 2 0 0 0-2 2v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8a2 2 0 0 0-2-2h-1V7a5 5 0 0 0-5-5Zm-3 8V7a3 3 0 1 1 6 0v3H9Z"/></svg><span><b>Dato protegido · RGPD</b> Solo lo ve el club, para contactarte. No se publica ni se cede a terceros. Tratamiento conforme al Reglamento (UE) 2016/679 y la LOPDGDD. Responsable: The Black List Crew. Consulta la <a href="#privacidad">Política de privacidad</a>.</span></p>
-          </div>
-          <div class="field">
-            <label for="u-city">Tu ciudad</label>
-            <select id="u-city" required>
-              <option value="">Elige una ciudad</option>
-              <option>Barcelona</option>
-              <option>Valencia</option>
-              <option>Madrid</option>
-            </select>
-          </div>
-          <div class="field">
-            <label for="u-photo">Foto de tu coche</label>
-            <input id="u-photo" type="file" accept="image/jpeg,image/png,image/webp" required>
-            <p class="hint">Quitamos los datos ocultos de la foto, como la ubicación, antes de subirla.</p>
-          </div>
-          <fieldset class="consent">
-            <legend>Consentimiento</legend>
-            <label class="check" for="u-ok">
-              <input id="u-ok" type="checkbox">
-              <span>Doy mi consentimiento para que <b>The Black List Crew</b> trate mi nombre, Instagram, ciudad, móvil y foto con la finalidad de gestionar mi participación en el club y contactarme, tal y como explica la <a href="#privacidad">Política de privacidad</a>.</span>
-            </label>
-            <label class="check" for="u-pub">
-              <input id="u-pub" type="checkbox">
-              <span>Autorizo que mi <b>foto, nombre e Instagram</b> se publiquen en la web del club. El móvil nunca se publica.</span>
-            </label>
-            <label class="check" for="u-own">
-              <input id="u-own" type="checkbox">
-              <span>Confirmo que soy <b>mayor de edad</b>, que la foto es mía o tengo permiso para usarla, y que no salen otras personas identificables sin su autorización.</span>
-            </label>
-            <p class="hint">Puedes retirar tu consentimiento y pedir el acceso, la rectificación o el borrado de tus datos en cualquier momento. Responsable: The Black List Crew. Más información en la <a href="#privacidad">Política de privacidad</a>.</p>
-          </fieldset>
-          <button class="btn" type="submit" id="u-send">Enviar foto</button>
-          <p class="u-status" id="u-status" role="status"></p>
-        </form>
+        <div class="form">
+          <p class="fine">Entra en la zona de Miembros, abre la pestaña «Mi foto» y envía la tuya. Si todavía no tienes cuenta, pide el alta desde «Unirse».</p>
+          <p style="margin-top:16px"><a class="btn" href="#miembros">Ir a la zona de Miembros</a> <a class="btn ghost" href="#unirse">Unirme al club</a></p>
+        </div>
       </div>
     </div>
   </section>
@@ -1437,6 +1395,7 @@ body{background:#050507}
           <button type="button" class="ctab mtab" data-tab="resumen" aria-pressed="true">Avisos</button>
           <button type="button" class="ctab mtab" data-tab="foro" aria-pressed="false">Foro</button>
           <button type="button" class="ctab mtab" data-tab="wa" aria-pressed="false">WhatsApp</button>
+          <button type="button" class="ctab mtab" data-tab="foto" aria-pressed="false">Mi foto</button>
           <button type="button" class="ctab mtab" data-tab="admin" aria-pressed="false" id="m-admin-btn" hidden>Administración</button>
         </div>
         <div id="m-tab-resumen">
@@ -1471,11 +1430,27 @@ body{background:#050507}
           </div>
         </div>
 
+        <div id="m-tab-foto" hidden>
+          <p class="section-lead">Puedes subir <b>una sola foto de tu coche</b> a la carpeta Miembros de la galería. Va unida a tu cuenta (tu correo) y a tu WhatsApp, y la revisamos antes de publicarla. Tu correo y tu WhatsApp nunca se publican: solo se ven tu nombre, tu ciudad y el modelo de tu coche.</p>
+          <div id="ph-current"></div>
+          <form class="form" id="ph-form" novalidate hidden>
+            <div class="field"><label for="ph-label">Tu coche (marca y modelo)</label><input id="ph-label" type="text" maxlength="80" placeholder="Ej.: Nissan Skyline R34"></div>
+            <div class="field"><label for="ph-city">Tu ciudad</label><select id="ph-city"><option value="">Elige una ciudad</option><option value="barcelona">Barcelona</option><option value="valencia">Valencia</option><option value="madrid">Madrid</option></select></div>
+            <div class="field"><label for="ph-cap">Comentario (opcional)</label><input id="ph-cap" type="text" maxlength="200"></div>
+            <div class="field"><label for="ph-file">Foto de tu coche</label><input id="ph-file" type="file" accept="image/jpeg,image/png,image/webp"><p class="hint">Quitamos los datos ocultos de la foto, como la ubicación, antes de subirla.</p></div>
+            <label class="check" for="ph-ok"><input id="ph-ok" type="checkbox"><span>Soy mayor de edad, la foto es mía o tengo permiso para usarla, no salen otras personas identificables sin su autorización, y autorizo que se publique junto a mi nombre en la web del club.</span></label>
+            <button class="btn" type="submit" id="ph-send">Enviar mi foto</button>
+          </form>
+          <p class="fine" id="ph-nowa" hidden>Para subir tu foto primero conecta tu WhatsApp en la pestaña «WhatsApp».</p>
+          <p class="u-status" id="ph-status" role="status"></p>
+        </div>
+
         <div id="m-tab-admin" hidden>
           <p class="section-lead">Panel del staff. Solo lo ves tú: nadie más tiene acceso a estos datos.</p>
           <div class="cities-tabs" id="a-tabs" role="group" aria-label="Administración">
             <button type="button" class="ctab atab" data-a="miembros" aria-pressed="true">Miembros</button>
             <button type="button" class="ctab atab" data-a="fotos" aria-pressed="false">Fotos</button>
+            <button type="button" class="ctab atab" data-a="galeria" aria-pressed="false">Galería</button>
             <button type="button" class="ctab atab" data-a="mercado" aria-pressed="false">Mercado</button>
             <button type="button" class="ctab atab" data-a="mensajes" aria-pressed="false">Mensajes</button>
             <button type="button" class="ctab atab" data-a="contenido" aria-pressed="false">Eventos y avisos</button>
@@ -1604,22 +1579,18 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
   var folderBtns = document.querySelectorAll(".folder");
   function folderOf(p) { return FOLDERS[p.folder] ? p.folder : "eventos"; }
   function validMember(m) {
-    return m && typeof m.name === "string" && m.name.length > 0 && m.name.length <= 40 &&
-      typeof m.instagram === "string" && /^[A-Za-z0-9._]{1,30}$/.test(m.instagram) &&
-      typeof m.photo_path === "string" && /^[a-f0-9-]{36}\.jpg$/.test(m.photo_path);
+    return m && typeof m.author_name === "string" && m.author_name.length > 0 && m.author_name.length <= 40 &&
+      typeof m.public_path === "string" && /^[a-f0-9-]{36}\.jpg$/.test(m.public_path);
   }
   function memberFig(m) {
     var f = el("figure", "member");
     var i = el("img");
-    i.src = BACKEND.url + "/storage/v1/object/public/member-photos/" + m.photo_path;
+    i.src = m.src;
     i.alt = "Coche de " + m.name; i.loading = "lazy";
     f.appendChild(i);
     var c = el("figcaption");
     c.appendChild(el("b", null, m.name));
-    var a = el("a", null, "@" + m.instagram);
-    a.href = "https://www.instagram.com/" + encodeURIComponent(m.instagram) + "/";
-    a.target = "_blank"; a.rel = "noopener noreferrer";
-    c.appendChild(a);
+    if (m.label) c.appendChild(el("span", null, m.label));
     f.appendChild(c);
     return f;
   }
@@ -1659,11 +1630,27 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
   renderPhotos();
 
   if (BACKEND.url && BACKEND.key) {
-    fetch(BACKEND.url + "/rest/v1/club_members?select=name,instagram,photo_path,city&approved=eq.true&order=created_at.desc&limit=100", {
+    var PUBF = BACKEND.url + "/storage/v1/object/public/photos-public/";
+    var CITYN = { barcelona: "Barcelona", valencia: "Valencia", madrid: "Madrid" };
+    fetch(BACKEND.url + "/rest/v1/gallery_photos?select=folder,path,caption&order=created_at.desc&limit=300", {
       headers: { apikey: BACKEND.key, Authorization: "Bearer " + BACKEND.key }
     }).then(function (r) { return r.ok ? r.json() : []; })
       .then(function (rows) {
-        MEMBERS = (Array.isArray(rows) ? rows : []).filter(validMember);
+        (Array.isArray(rows) ? rows : []).forEach(function (g) {
+          if (g && (g.folder === "eventos" || g.folder === "quedadas") && typeof g.path === "string" && /^[a-f0-9-]{36}\.jpg$/.test(g.path)) {
+            PHOTOS.push({ src: PUBF + g.path, alt: g.caption || "Foto del club", folder: g.folder });
+          }
+        });
+        renderPhotos();
+      })
+      .catch(function () {});
+    fetch(BACKEND.url + "/rest/v1/rpc/public_member_photos", {
+      method: "POST", headers: { apikey: BACKEND.key, Authorization: "Bearer " + BACKEND.key, "Content-Type": "application/json" }, body: "{}"
+    }).then(function (r) { return r.ok ? r.json() : []; })
+      .then(function (rows) {
+        MEMBERS = (Array.isArray(rows) ? rows : []).filter(validMember).map(function (m) {
+          return { name: m.author_name, city: CITYN[m.city] || "", label: typeof m.vehicle_label === "string" ? m.vehicle_label : "", src: PUBF + m.public_path };
+        });
         renderPhotos();
       })
       .catch(function () {});
@@ -1919,9 +1906,176 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
   function admShow(t) {
     admTab = t; aSay("");
     Array.prototype.forEach.call(document.querySelectorAll(".atab"), function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-a") === t)); });
-    ({ miembros: admMembers, fotos: admPhotos, mercado: admListings, mensajes: admMessages, contenido: admContent })[t]();
+    ({ miembros: admMembers, fotos: admPhotos, galeria: admGallery, mercado: admListings, mensajes: admMessages, contenido: admContent })[t]();
   }
   Array.prototype.forEach.call(document.querySelectorAll(".atab"), function (b) { b.addEventListener("click", function () { admShow(b.getAttribute("data-a")); }); });
+
+
+  /* ===== Utilidades de fotos ===== */
+  function objUrl(bucket, path) { return BACKEND.url + "/storage/v1/object/" + bucket + "/" + path; }
+  function uuid4() {
+    if (window.crypto && crypto.randomUUID) return crypto.randomUUID();
+    var b = new Uint8Array(16); crypto.getRandomValues(b);
+    b[6] = (b[6] & 15) | 64; b[8] = (b[8] & 63) | 128;
+    var h = Array.prototype.map.call(b, function (x) { return ("0" + x.toString(16)).slice(-2); }).join("");
+    return h.slice(0, 8) + "-" + h.slice(8, 12) + "-" + h.slice(12, 16) + "-" + h.slice(16, 20) + "-" + h.slice(20);
+  }
+  // Redimensiona y recomprime a JPG (quita también la ubicación y demás datos ocultos de la foto)
+  function toJpegBlob(file) {
+    return new Promise(function (resolve, reject) {
+      var url = URL.createObjectURL(file), img = new Image();
+      img.onload = function () {
+        URL.revokeObjectURL(url);
+        var w = img.naturalWidth, h = img.naturalHeight, k = Math.min(1, 1600 / Math.max(w, h));
+        var c = document.createElement("canvas");
+        c.width = Math.max(1, Math.round(w * k)); c.height = Math.max(1, Math.round(h * k));
+        c.getContext("2d").drawImage(img, 0, 0, c.width, c.height);
+        var q = 0.85;
+        (function attempt() {
+          c.toBlob(function (b) {
+            if (!b) return reject(new Error("blob"));
+            if (b.size > 3000000 && q > 0.4) { q -= 0.15; return attempt(); }
+            if (b.size > 3000000) return reject(new Error("big"));
+            resolve(b);
+          }, "image/jpeg", q);
+        })();
+      };
+      img.onerror = function () { URL.revokeObjectURL(url); reject(new Error("img")); };
+      img.src = url;
+    });
+  }
+
+  /* ===== Admin: subir y borrar fotos de Eventos y Quedadas ===== */
+  function admGallery() {
+    var body = aBody();
+    var box = node("div", "adm-box"); box.appendChild(node("h3", null, "Subir fotos a la galería (Eventos y Quedadas)"));
+    var folder = node("select");
+    [["eventos", "Eventos"], ["quedadas", "Quedadas"]].forEach(function (k) { var o = node("option", null, k[1]); o.value = k[0]; folder.appendChild(o); });
+    var cap = inp("text", "Descripción (opcional)", 200);
+    var file = inp("file"); file.accept = "image/jpeg,image/png,image/webp"; file.multiple = true;
+    box.appendChild(field("Carpeta", folder)); box.appendChild(field("Descripción (opcional)", cap)); box.appendChild(field("Fotos (puedes elegir varias)", file));
+    var up = abtn("Subir fotos", function () {
+      var files = Array.prototype.slice.call(file.files || []);
+      if (!files.length) return aSay("Elige al menos una foto.", true);
+      if (files.length > 20) return aSay("Máximo 20 fotos cada vez.", true);
+      var done = 0, bad = 0; up.disabled = true; aSay("Subiendo 0 de " + files.length + "…");
+      ensureSession().then(function (se) {
+        if (!se) throw new Error("forbidden");
+        return files.reduce(function (chain, f) {
+          return chain.then(function () {
+            var name = uuid4() + ".jpg";
+            return toJpegBlob(f).then(function (blob) {
+              return fetch(objUrl("photos-public", name), { method: "POST", headers: { apikey: BACKEND.key, Authorization: "Bearer " + se.access_token, "Content-Type": "image/jpeg", "x-upsert": "false" }, body: blob });
+            }).then(function (u) {
+              if (!u.ok) throw new Error("up");
+              return api("POST", "gallery_photos", { folder: folder.value, path: name, caption: cap.value.trim() || null }, "return=minimal").then(function (r) {
+                if (!r.ok) { fetch(objUrl("photos-public", name), { method: "DELETE", headers: { apikey: BACKEND.key, Authorization: "Bearer " + se.access_token } }).catch(function () {}); throw new Error("row"); }
+              });
+            }).then(function () { done++; }, function () { bad++; }).then(function () { aSay("Subiendo " + (done + bad) + " de " + files.length + "…"); });
+          });
+        }, Promise.resolve());
+      }).then(function () {
+        admGallery(); aSay(done + (done === 1 ? " foto subida" : " fotos subidas") + (bad ? " y " + bad + " con error (revisa que sean imágenes y pesen poco)." : "."), bad > 0 && !done);
+      }).catch(function (e) { up.disabled = false; fail(e); });
+    });
+    box.appendChild(up);
+    var list = node("div"); box.appendChild(list); body.appendChild(box);
+    api("GET", "gallery_photos?select=id,folder,path,caption,created_at&order=created_at.desc&limit=200").then(function (r) {
+      var rows = Array.isArray(r.data) ? r.data : [];
+      if (!rows.length) { list.appendChild(node("p", "adm-meta", "Todavía no hay fotos subidas.")); return; }
+      rows.forEach(function (g) {
+        if (!g || !UUID.test(g.id) || typeof g.path !== "string") return;
+        var c = card(String(g.caption || "Sin descripción"), (g.folder === "quedadas" ? "Quedadas" : "Eventos") + " · " + when(g.created_at));
+        c.insertBefore(pubImg("photos-public", g.path), c.firstChild);
+        acts(c, [abtn("Borrar", function () {
+          ensureSession().then(function (se) {
+            return fetch(objUrl("photos-public", g.path), { method: "DELETE", headers: { apikey: BACKEND.key, Authorization: "Bearer " + se.access_token } });
+          }).then(function (d) {
+            if (!d.ok && d.status !== 404) throw new Error("del");
+            return api("DELETE", "gallery_photos?id=eq." + g.id);
+          }).then(function () { admGallery(); aSay("Foto borrada."); }).catch(fail);
+        }, true, true)]);
+        list.appendChild(c);
+      });
+    }).catch(fail);
+  }
+
+  /* ===== Miembros: una foto por miembro, unida a su cuenta (correo) y a su WhatsApp ===== */
+  var PH_ESTADO = { pendiente: "Pendiente de revisión", aprobada: "Publicada en la galería", rechazada: "Rechazada", cambios: "Te pedimos cambios", retirada: "Retirada" };
+  function phSay(m, bad) { var e = document.getElementById("ph-status"); e.textContent = m || ""; e.className = "u-status" + (bad ? " bad" : ""); }
+  function phLoad(msg) {
+    var box = document.getElementById("ph-current"), form = document.getElementById("ph-form"), noWa = document.getElementById("ph-nowa");
+    box.textContent = ""; form.hidden = true; noWa.hidden = true; phSay("Cargando…");
+    ensureSession().then(function (se) {
+      if (!se) { phSay("Vuelve a entrar para ver tu foto.", true); return; }
+      var uid = myId(se);
+      return Promise.all([
+        api("GET", "photo_submissions?select=id,status,status_note,city,vehicle_label,caption,pending_path,public_path,created_at&user_id=eq." + encodeURIComponent(uid) + "&order=created_at.desc&limit=10"),
+        api("GET", "member_profiles?select=whatsapp&user_id=eq." + encodeURIComponent(uid) + "&limit=1")
+      ]).then(function (res) {
+        phSay(msg || "");
+        var rows = Array.isArray(res[0].data) ? res[0].data : [];
+        var wa = Array.isArray(res[1].data) && res[1].data[0] ? res[1].data[0].whatsapp : "";
+        var act = rows.filter(function (r) { return r.status === "pendiente" || r.status === "aprobada" || r.status === "cambios"; })[0];
+        var last = rows[0];
+        if (act) {
+          var c = card("Tu foto · " + (PH_ESTADO[act.status] || act.status), [act.vehicle_label, act.city ? act.city.charAt(0).toUpperCase() + act.city.slice(1) : "", when(act.created_at)].filter(Boolean).join(" · "), act.status_note || act.caption || "");
+          var img = node("img", "adm-img"); img.alt = "Tu foto"; c.insertBefore(img, c.firstChild);
+          if (act.status === "aprobada" && act.public_path) img.src = objUrl("public/photos-public", act.public_path); else authImg(img, "photos-pending", act.pending_path);
+          var note = act.status === "cambios" ? "Quita esta foto y envía otra con los cambios que te hemos pedido." : "Solo puedes tener una foto. Si quieres cambiarla, quítala y sube otra.";
+          c._main.appendChild(node("div", "adm-meta", note));
+          acts(c, [abtn("Quitar mi foto", function () { phRemove(act); }, true, true)]);
+          box.appendChild(c);
+          return;
+        }
+        if (last && (last.status === "rechazada" || last.status === "retirada")) {
+          box.appendChild(node("p", "fine", "Tu foto anterior: " + (PH_ESTADO[last.status] || last.status) + (last.status_note ? " — " + last.status_note : "") + ". Puedes enviar otra."));
+        }
+        if (!wa) { noWa.hidden = false; return; }
+        form.hidden = false;
+      });
+    }).catch(function () { phSay("No se pudo cargar. Inténtalo de nuevo.", true); });
+  }
+  function phRemove(r) {
+    phSay("Quitando tu foto…");
+    ensureSession().then(function (se) {
+      var h = { apikey: BACKEND.key, Authorization: "Bearer " + se.access_token };
+      var delPending = function () { return fetch(objUrl("photos-pending", r.pending_path), { method: "DELETE", headers: h }).catch(function () {}); };
+      if (r.status === "aprobada") {
+        // Primero se borra el archivo público (la regla exige que la fila aún apunte a él) y luego se marca como retirada
+        return fetch(objUrl("photos-public", r.public_path), { method: "DELETE", headers: h })
+          .then(function () { return rpc("member_withdraw_photo", { p_id: r.id }); })
+          .then(delPending);
+      }
+      return delPending().then(function () { return api("DELETE", "photo_submissions?id=eq." + encodeURIComponent(r.id)); });
+    }).then(function () { phLoad("Tu foto se ha quitado."); }).catch(function () { phSay("No se pudo quitar. Inténtalo de nuevo.", true); });
+  }
+  document.getElementById("ph-form").addEventListener("submit", function (e) {
+    e.preventDefault();
+    var label = document.getElementById("ph-label").value.trim(), city = document.getElementById("ph-city").value;
+    var cap = document.getElementById("ph-cap").value.trim(), file = document.getElementById("ph-file").files[0];
+    if (!label || label.length > 80) return phSay("Escribe la marca y el modelo de tu coche (hasta 80 letras).", true);
+    if (!/^(barcelona|valencia|madrid)$/.test(city)) return phSay("Elige tu ciudad.", true);
+    if (!file) return phSay("Elige una foto de tu coche.", true);
+    if (!document.getElementById("ph-ok").checked) return phSay("Marca la casilla que confirma que la foto es tuya y autorizas publicarla.", true);
+    var btn = document.getElementById("ph-send"), path = null, token = null;
+    btn.disabled = true; phSay("Subiendo tu foto…");
+    Promise.all([ensureSession(), toJpegBlob(file)]).then(function (x) {
+      var se = x[0]; if (!se) throw new Error("session");
+      token = se.access_token; path = myId(se) + "/" + uuid4() + ".jpg";
+      return fetch(objUrl("photos-pending", path), { method: "POST", headers: { apikey: BACKEND.key, Authorization: "Bearer " + token, "Content-Type": "image/jpeg", "x-upsert": "false" }, body: x[1] })
+        .then(function (u) { if (!u.ok) throw new Error("upload"); });
+    }).then(function () {
+      return api("POST", "photo_submissions", { city: city, vehicle_label: label, caption: cap || null, pending_path: path, rights_confirmed: true, consent_version: "2026-11-15" }, "return=minimal");
+    }).then(function (r) {
+      if (!r.ok) { var m = JSON.stringify(r.data || ""); throw new Error(/one_per_member|23505|duplicate/.test(m) ? "one" : /whatsapp_required/.test(m) ? "wa" : "row"); }
+      document.getElementById("ph-form").reset(); phLoad("¡Recibida! Revisaremos tu foto y saldrá en la carpeta Miembros cuando la aprobemos.");
+    }).catch(function (err) {
+      if (path && token) fetch(objUrl("photos-pending", path), { method: "DELETE", headers: { apikey: BACKEND.key, Authorization: "Bearer " + token } }).catch(function () {});
+      var m = err && err.message;
+      phSay(m === "img" ? "No podemos leer esa foto. Prueba con una JPG o PNG." : m === "big" ? "La foto pesa demasiado. Prueba con otra más pequeña." : m === "one" ? "Ya tienes una foto enviada. Solo se permite una por miembro." : m === "wa" ? "Conecta primero tu WhatsApp en la pestaña «WhatsApp»." : "No se pudo enviar. Revisa tu conexión e inténtalo otra vez.", true);
+    }).then(function () { btn.disabled = false; });
+  });
 
   function admMembers() {
     var body = aBody(); aSay("Cargando…");
@@ -1969,10 +2123,12 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
 
   function admPhotos() {
     var body = aBody(); aSay("Cargando…");
-    rpc("admin_list_photos").then(function (rows) {
+    Promise.all([rpc("admin_list_photos"), rpc("admin_photo_owners").catch(function () { return []; })]).then(function (res) {
+      var rows = res[0], own = {}; (res[1] || []).forEach(function (o) { own[o.user_id] = o; });
       aSay(rows.length ? "" : "No hay fotos todavía.");
       rows.forEach(function (r) {
         var c = card(String(r.author_name || "Miembro") + " · " + String(r.city || ""), when(r.created_at) + " · estado: " + r.status, [r.vehicle_label, r.caption].filter(Boolean).join(" — "));
+        var ow = own[r.user_id]; if (ow) c._main.appendChild(node("div", "adm-meta", "Correo: " + ow.email + " · WhatsApp: " + (ow.whatsapp || "sin conectar")));
         var img = node("img", "adm-img"); img.alt = "Foto enviada"; c.insertBefore(img, c.firstChild);
         if (r.status === "aprobada") { var pi = pubImg("photos-public", r.public_path); img.replaceWith(pi); }
         else authImg(img, "photos-pending", r.pending_path);
@@ -2225,10 +2381,12 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
     document.getElementById("m-tab-resumen").hidden = tab !== "resumen";
     document.getElementById("m-tab-foro").hidden = tab !== "foro";
     document.getElementById("m-tab-wa").hidden = tab !== "wa";
+    document.getElementById("m-tab-foto").hidden = tab !== "foto";
     document.getElementById("m-tab-admin").hidden = tab !== "admin";
     Array.prototype.forEach.call(document.querySelectorAll(".mtab"), function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-tab") === tab)); });
     if (tab === "foro") { if (fOpen) openTopic(fOpen); else loadTopics(); }
     if (tab === "admin") admShow(admTab);
+    if (tab === "foto") phLoad();
   }
   Array.prototype.forEach.call(document.querySelectorAll(".mtab"), function (b) { b.addEventListener("click", function () { showTab(b.getAttribute("data-tab")); }); });
   Array.prototype.forEach.call(document.querySelectorAll(".fcat"), function (b) {
