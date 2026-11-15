@@ -1372,7 +1372,7 @@ body{background:#050507}
         <div>
           <p class="kicker" id="ct-kicker">Contacto</p>
           <h2 id="ct-title">Escríbenos</h2>
-          <p class="lead" id="ct-lead" style="margin-top:20px">Patrocinios, colaboraciones entre clubs, propuestas de eventos o cualquier consulta. Rellena el formulario, copia el mensaje y envíalo por los canales del club, que encontrarás en <a href="#redes">Redes sociales</a>. Lo leemos nosotros, sin intermediarios.</p>
+          <p class="lead" id="ct-lead" style="margin-top:20px">Patrocinios, colaboraciones entre clubs, propuestas de eventos o cualquier consulta. Rellena el formulario y el mensaje nos llega directamente al club. Lo leemos nosotros, sin intermediarios.</p>
         </div>
         <div id="contact-slot"></div>
       </div>
@@ -2502,8 +2502,7 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
         if (!res.ok && res.status === 429) { say2("Hay muchas solicitudes en este momento. Espera unos minutos y vuelve a intentarlo.", true); return; }
         if (!res.ok) { say2("No se pudo crear tu acceso. Revisa el correo y que la contraseña tenga al menos 8 caracteres.", true); return; }
         document.getElementById("j-pass").value = ""; document.getElementById("j-pass2").value = "";
-        say2("Solicitud enviada. Tu cuenta queda pendiente de aprobación: cuando el club la acepte, podrás entrar en Miembros con tu correo y tu contraseña. Si te pedimos confirmar el correo, revisa tu bandeja. Copia también el mensaje de abajo y envíalo por los canales del club.");
-        prepare();
+        say2("Solicitud enviada. Tu cuenta queda pendiente de aprobación: cuando el club la acepte, podrás entrar en Miembros con tu correo y tu contraseña. Si te pedimos confirmar el correo, revisa tu bandeja.");
       })
       .catch(function () { say2("No se pudo conectar. Inténtalo de nuevo.", true); })
       .then(function () { btn.disabled = false; });
