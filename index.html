@@ -2081,7 +2081,7 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
     if (recTok) { show("reset"); return; }
     ensureSession().then(function (s) {
       if (!s) { show("out"); return; }
-      return get("member_profiles?select=name,approved,whatsapp&limit=1", s).then(function (res) {
+      return get("member_profiles?select=name,approved,whatsapp&user_id=eq." + encodeURIComponent(myId(s) || "") + "&limit=1", s).then(function (res) {
         if (res.status === 401) { save(null); show("out"); return; }
         var p = Array.isArray(res.data) ? res.data[0] : null;
         if (!p || !p.approved) { show("pending"); return; }
@@ -2498,8 +2498,9 @@ var STAFF = [];   // { name: "Nombre", role: "Cargo", photo: "fotos/nombre.jpg" 
       method: "POST",
       headers: { apikey: BACKEND.key, Authorization: "Bearer " + BACKEND.key, "Content-Type": "application/json" },
       body: JSON.stringify({ email: email, password: pass, data: { name: name, terms_version: "2026-11-12", terms_accepted_at: new Date().toISOString(), adult: true } })
-    }).then(function (r) { return { ok: r.ok }; })
+    }).then(function (r) { return { ok: r.ok, status: r.status }; })
       .then(function (res) {
+        if (!res.ok && res.status === 429) { say2("Hay muchas solicitudes en este momento. Espera unos minutos y vuelve a intentarlo.", true); return; }
         if (!res.ok) { say2("No se pudo crear tu acceso. Revisa el correo y que la contraseña tenga al menos 8 caracteres.", true); return; }
         document.getElementById("j-pass").value = ""; document.getElementById("j-pass2").value = "";
         say2("Solicitud enviada. Tu cuenta queda pendiente de aprobación: cuando el club la acepte, podrás entrar en Miembros con tu correo y tu contraseña. Si te pedimos confirmar el correo, revisa tu bandeja. Copia también el mensaje de abajo y envíalo por los canales del club.");
